@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{447d8e42-cadd-4b91-8741-7b5fb1492daf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{a16d630d-7fd0-4c41-83bb-2681acdab1ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structure">
+      <UniqueIdentifier>{364b848d-f239-4862-b504-8803fcc6540c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structure\Structure">
+      <UniqueIdentifier>{8ceadef0-652a-4dd1-aa33-a0897682822a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathf">
+      <UniqueIdentifier>{65aef136-18b6-40e2-8674-6d41171176a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Derived">
+      <UniqueIdentifier>{40576148-08a3-4bb2-88bb-83c2ae53ef33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Derived\GameObject">
+      <UniqueIdentifier>{270cdf4c-9a46-4e5c-b80c-dcf0780388f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{0045fc62-78b7-42e6-bc4d-08287ca29e65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Derived">
+      <UniqueIdentifier>{e8d417d9-8ad5-4178-b914-beb350df50b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Derived\GraphicComponents">
+      <UniqueIdentifier>{1d981555-21a3-443c-a5d4-e747a8e97fc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Derived\GraphicComponents\Derived">
+      <UniqueIdentifier>{42c29101-c90a-42f4-b280-2edb80f4001e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Derived\GraphicComponents\Derived\Geometry">
+      <UniqueIdentifier>{612ebd8a-f02b-43df-b819-bd8a066cedbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Derived\GraphicComponents\Derived\Geometry\Derived">
+      <UniqueIdentifier>{9443e507-176a-48b7-937a-4dac96099a19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\Scene">
+      <UniqueIdentifier>{ff5a5342-197a-447b-b110-06b09c8ecfdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\Assets">
+      <UniqueIdentifier>{acf0b16d-ecaf-4d38-b326-884e3d2c5883}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\Assets\Object">
+      <UniqueIdentifier>{e3f60232-f247-48de-abe4-d658a3a430f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\Assets\Object\Square">
+      <UniqueIdentifier>{aa5e2657-01b5-4cfc-bf2f-76d2a28648cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\Assets\Object\Circle">
+      <UniqueIdentifier>{29a31d0d-819e-4926-b255-e847974e0dc5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Engine.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Time.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Mathf\Mathf.cpp">
+      <Filter>Mathf</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\TagManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Object.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Derived\GameObject\GameObject.cpp">
+      <Filter>Object\Derived\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Derived\Transform.cpp">
+      <Filter>Components\Derived</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Component.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\SceneManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Scene.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Layer.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Derived\GraphicComponents\Derived\Geometry\Geometry.cpp">
+      <Filter>Components\Derived\GraphicComponents\Derived\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Derived\GraphicComponents\Derived\Geometry\Derived\Rectangle.cpp">
+      <Filter>Components\Derived\GraphicComponents\Derived\Geometry\Derived</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Derived\GraphicComponents\Derived\Geometry\Derived\Polygon.cpp">
+      <Filter>Components\Derived\GraphicComponents\Derived\Geometry\Derived</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Derived\GraphicComponents\Derived\Geometry\Derived\Ellipse.cpp">
+      <Filter>Components\Derived\GraphicComponents\Derived\Geometry\Derived</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Derived\GraphicComponents\Derived\Geometry\Derived\RoundedRectangle.cpp">
+      <Filter>Components\Derived\GraphicComponents\Derived\Geometry\Derived</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Derived\GraphicComponents\GraphicComponent.cpp">
+      <Filter>Components\Derived\GraphicComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Camera.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="App\Assets\Object\Square\Square.cpp">
+      <Filter>App\Assets\Object\Square</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Debug.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="App\Scene\TestScene01.cpp">
+      <Filter>App\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="App\Assets\Object\Circle\Circle.cpp">
+      <Filter>App\Assets\Object\Circle</Filter>
+    </ClCompile>
+    <ClCompile Include="App\Scene\TestScene02.cpp">
+      <Filter>App\Scene</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Headers\Essential.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Macro.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Engine.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Time.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathf\Mathf.h">
+      <Filter>Mathf</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\TagManager.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Object.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Derived\GameObject\GameObject.h">
+      <Filter>Object\Derived\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Derived\Transform.h">
+      <Filter>Components\Derived</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Component.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\SceneManager.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scene.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Layer.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Derived\GraphicComponents\Derived\Geometry\Geometry.h">
+      <Filter>Components\Derived\GraphicComponents\Derived\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Derived\GraphicComponents\Derived\Geometry\Derived\Rectangle.h">
+      <Filter>Components\Derived\GraphicComponents\Derived\Geometry\Derived</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Derived\GraphicComponents\Derived\Geometry\Derived\Polygon.h">
+      <Filter>Components\Derived\GraphicComponents\Derived\Geometry\Derived</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Derived\GraphicComponents\Derived\Geometry\Derived\Ellipse.h">
+      <Filter>Components\Derived\GraphicComponents\Derived\Geometry\Derived</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Derived\GraphicComponents\Derived\Geometry\Derived\RoundedRectangle.h">
+      <Filter>Components\Derived\GraphicComponents\Derived\Geometry\Derived</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Derived\Script.h">
+      <Filter>Components\Derived</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Derived\GraphicComponents\GraphicComponent.h">
+      <Filter>Components\Derived\GraphicComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Camera.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Assets\Object\Square\Square.h">
+      <Filter>App\Assets\Object\Square</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Debug.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Scene\TestScene01.h">
+      <Filter>App\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Scene\SceneId.h">
+      <Filter>App\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Assets\Object\Circle\Circle.h">
+      <Filter>App\Assets\Object\Circle</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Scene\TestScene02.h">
+      <Filter>App\Scene</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

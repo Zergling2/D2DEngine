@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Components">
+      <UniqueIdentifier>{bb684376-6f65-457c-bdb3-fa87380fae5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{4fcf52e2-4c83-42b0-9585-901ea65ef115}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Acc">
+      <UniqueIdentifier>{e2c8d75a-2474-4f70-9fca-59da47475f3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{77d968c7-9047-478e-9f8d-06adaacfb714}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Processor">
+      <UniqueIdentifier>{ebfd7196-4fe7-4c86-bdf9-41dd657444e0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Components\RigidBody.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\BoxCollider.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Acc\AABB.cpp">
+      <Filter>Core\Acc</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Math2D.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Processor\Processor.cpp">
+      <Filter>Core\Processor</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\CircleCollider.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Components\RigidBody.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\BoxCollider.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Acc\AABB.h">
+      <Filter>Core\Acc</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Math2D.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Processor\Processor.h">
+      <Filter>Core\Processor</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\CircleCollider.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Collider.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Type.h" />
+  </ItemGroup>
+</Project>
