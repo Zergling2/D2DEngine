@@ -46,7 +46,7 @@ bool Processor::CheckCircleToCircleCollision(Manifold* pManifold, const class Ri
     else
     {
         pManifold->penetrationDepth = reinterpret_cast<const CircleCollider* const>(pCircle1->m_pCollider)->m_radius;
-        pManifold->collisionNormal = math::Vector2(real(1.0), real(0.0));
+        pManifold->collisionNormal = math::Vector2(real(1.0), real(0.0));       // Constant
     }
     return true;
 }
@@ -77,12 +77,12 @@ bool Processor::CheckBoxToCircleCollision(const class RigidBody* const pBox, con
     return true;
 }
 
-bool Processor::CheckBoxToBoxCollision(Manifold* pManifold, const class RigidBody* const pBox1, const class RigidBody* const pBox2)
+bool Processor::CheckBoxToBoxCollision(const class RigidBody* const pBox1, const class RigidBody* const pBox2)
 {
     const BoxCollider* const pBoxCollider1 = reinterpret_cast<const BoxCollider* const>(pBox1->m_pCollider);
     const BoxCollider* const pBoxCollider2 = reinterpret_cast<const BoxCollider* const>(pBox2->m_pCollider);
 
-    math::Vector2 v = pBox2->m_pos - pBox1->m_pos;
+    // math::Vector2 v = pBox2->m_pos - pBox1->m_pos;   // OBB 충돌 감지 전까지 보류
     math::Vector2 projAxis;
     real box1Min;
     real box1Max;

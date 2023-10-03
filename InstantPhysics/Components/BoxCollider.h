@@ -20,7 +20,7 @@ namespace ip
 		}
 		virtual ~BoxCollider() override {}
 		// ==========================================================================
-		virtual void CalculateAABB(class AABB* const pAABB, const class RigidBody* const pRigidBody) override {}
+		virtual void CalculateAABB(struct AABB* const pAABB, const class RigidBody* const pRigidBody) override {}
 		void GetMinMax(const math::Vector2& projVector, real* pMin, real* pMax) const;
 	public:
 		math::Vector2 m_points[4];

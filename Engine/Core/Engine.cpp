@@ -146,6 +146,13 @@ void Engine::Loop()
 
 	// ProcessInput();
 
+
+	// Avoid 'spiral of death' and clamp dt, thus clamping 
+	// how many times the physics update can be called in 
+	// a single game loop. 
+	// if (accumulator > 0.2f)
+	// 	accumulator = 0.2f
+
 	while (m_accumTime >= FIXED_DELTA_TIME)
 	{
 		// PhysicsEngine::Update(); // ¿¹½Ã

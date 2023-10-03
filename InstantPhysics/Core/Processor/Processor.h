@@ -25,6 +25,6 @@ namespace ip
 		// VirtualAlloc Page allocation + SIMD 처리로 전처리 과정에서 월드변환 모두 적용
 		bool CheckCircleToCircleCollision(Manifold* pManifold, const class RigidBody* const pCircle1, const class RigidBody* const pCircle2);
 		bool CheckBoxToCircleCollision(const class RigidBody* const pBox, const class RigidBody* const pCircle);
-		bool CheckBoxToBoxCollision(Manifold* pManifold, const class RigidBody* const pBox1, const class RigidBody* const pBox2);
+		bool CheckBoxToBoxCollision(const class RigidBody* const pBox1, const class RigidBody* const pBox2);
 	};
 }

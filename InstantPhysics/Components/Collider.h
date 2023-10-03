@@ -17,7 +17,7 @@ namespace ip
 		}
 		virtual ~Collider() = 0;
 		inline ColliderType GetType() const { return m_type; }
-		virtual void CalculateAABB(class AABB* const pAABB, const class RigidBody* const pRigidBody) = 0;
+		virtual void CalculateAABB(struct AABB* const pAABB, const class RigidBody* const pRigidBody) = 0;
 		ColliderType m_type;
 	};
 }
