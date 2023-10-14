@@ -59,7 +59,7 @@ Simplex::State Simplex::EvolveSimplex()
     }
         break;
     default:
-        // case _: throw 'Can\'t have simplex with ${vertices.length} verts!';
+        *reinterpret_cast<int*>(0x00000000) = 0;
         break;
     }
 
