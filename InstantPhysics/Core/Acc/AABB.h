@@ -13,6 +13,9 @@ namespace ip
 		// Parameters
 		// 1. const float vertices[]: Object Space Vertices!!
 		// 2. int count: Number of vertices
+		inline AABB()
+		{
+		}
 		inline AABB(real minX, real minY, real maxX, real maxY)
 			: m_min(minX, minY)
 			, m_max(maxX, maxY)

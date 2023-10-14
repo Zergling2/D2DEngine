@@ -21,9 +21,6 @@
     <ClCompile Include="Components\RigidBody.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="Components\BoxCollider.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="Core\Acc\AABB.cpp">
       <Filter>Core\Acc</Filter>
     </ClCompile>
@@ -36,12 +33,15 @@
     <ClCompile Include="Components\CircleCollider.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="Components\PolygonCollider.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Simplex.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\RigidBody.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\BoxCollider.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Core\Acc\AABB.h">
@@ -60,5 +60,23 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Type.h" />
+    <ClInclude Include="Components\Manifold.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Query.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Line.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\PolygonCollider.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Simplex.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="InstantPhysics.h" />
   </ItemGroup>
 </Project>

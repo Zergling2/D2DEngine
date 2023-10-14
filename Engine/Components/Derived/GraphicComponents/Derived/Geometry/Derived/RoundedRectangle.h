@@ -13,11 +13,7 @@ namespace D2DEngine
 
 		inline ID2D1RoundedRectangleGeometry* GetGeometry() { return m_pShape; }
 		inline const ID2D1RoundedRectangleGeometry* GetGeometry() const { return m_pShape; }
-	protected:
-		virtual void Render() override;
-	private:
-		BrushType m_bt;
-		ID2D1SolidColorBrush* m_pBrush;
+	public:
 		ID2D1RoundedRectangleGeometry* m_pShape;
 	};
 }

@@ -5,8 +5,6 @@ using namespace D2DEngine;
 
 Polygon::Polygon(GameObject* pGameObj, D2D1_POINT_2F vArr[], UINT count)
 	: Geometry(pGameObj)
-	, m_bt(BrushType::SolidColorBrush)
-	, m_pBrush(nullptr)
 	, m_pShape(nullptr)
 {
 	if (count < 2U)
@@ -14,10 +12,6 @@ Polygon::Polygon(GameObject* pGameObj, D2D1_POINT_2F vArr[], UINT count)
 		OutputDebugString(_T("Polygon must have at least 3 vertices."));
 		return;
 	}
-
-	// Create brush
-	if (FAILED(Engine::GetInstance().GetRenderTarget()->CreateSolidColorBrush(D2D1::ColorF(1.0f, 0.5f, 0.25f, 1.0f), &m_pBrush)))
-		OutputDebugString(_T("CreateSolidColorBrush() FAILED"));
 
 	if (FAILED(Engine::GetInstance().GetFactory()->CreatePathGeometry(&m_pShape)))
 		OutputDebugString(_T("CreatePathGeometry() FAILED"));
@@ -39,15 +33,5 @@ Polygon::Polygon(GameObject* pGameObj, D2D1_POINT_2F vArr[], UINT count)
 
 Polygon::~Polygon()
 {
-	SafeRelease(m_pBrush);
 	SafeRelease(m_pShape);
-}
-
-void Polygon::Render()
-{
-	if (!this->CheckEnable() || !this->m_pShape)
-		return;
-
-	Engine::GetInstance().GetRenderTarget()->FillGeometry(m_pShape, m_pBrush, NULL);
-	Engine::GetInstance().GetRenderTarget()->DrawGeometry(m_pShape, m_pBrush, 1.0f, NULL);
 }

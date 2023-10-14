@@ -10,8 +10,9 @@ namespace D2DEngine
 		Camera(float fovWidth, float fovHeight, float zoom = 1.0f);
 		virtual ~Camera();
 	public:
-		const D2D1::Matrix3x2F GetViewMatrix();
-		const D2D1::Matrix3x2F GetProjectionMatrix();
+		const D2D1::Matrix3x2F GetViewMatrix() const;
+		const D2D1::Matrix3x2F GetProjectionMatrix() const;
+		inline const D2D1::Matrix3x2F GetViewProjectionMatrix() const { return GetViewMatrix() * GetProjectionMatrix(); }
 		inline void Translate(float x, float y) { m_pos.x += x; m_pos.y += y; }
 		inline void SetPosition(const D2D_VECTOR_2F& pos) { m_pos = pos; }
 		inline void SetPosition(float x, float y) { m_pos.x = x; m_pos.y = y; }

@@ -45,7 +45,7 @@ bool SceneManager::CreateNextScene()
     {
         if (m_sceneTable[i].id == m_nextSceneId)
         {
-            m_pCurrentScene = m_sceneTable[i].SceneFactoryFucntion();
+            m_pCurrentScene = m_sceneTable[i].SceneFactoryFucntion();       // Create Scene
             break;
         }
     }

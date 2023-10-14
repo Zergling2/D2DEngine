@@ -9,11 +9,18 @@ namespace ip
 	{
 		const real PI = real(3.14159265358979);
 
-		struct Point2D
+		struct Point2
 		{
 		public:
 			real x;
 			real y;
+		};
+
+		struct Size2
+		{
+		public:
+			real width;
+			real height;
 		};
 
 		inline real RadianToDegree(real radian)
@@ -29,6 +36,7 @@ namespace ip
 		// Forward declaration for operator overloading functions
 		struct Vector2;
 		inline bool operator==(const Vector2& v1, const Vector2& v2);
+		inline bool operator!=(const Vector2& v1, const Vector2& v2);
 		inline const Vector2 operator+(const Vector2& v1, const Vector2& v2);
 		inline const Vector2 operator-(const Vector2& v1, const Vector2& v2);
 		inline const Vector2 operator*(const Vector2& v1, const Vector2& v2);
@@ -39,6 +47,31 @@ namespace ip
 
 		struct Vector2
 		{
+		public:
+			static const Vector2 zero;
+		public:
+			static inline real Dot(const Vector2& v1, const Vector2& v2)
+			{
+				return v1.x * v2.x + v1.y * v2.y;
+			}
+			static inline real Cross(const Vector2& v1, const Vector2& v2)
+			{
+				return v1.x * v2.y - v1.y * v2.x;
+			}
+			static inline const Vector2 Cross(const Vector2& v, real s)
+			{
+				return Vector2(v.y * s, v.x * -s);
+			}
+			static inline const Vector2 Cross(real s, const Vector2& v)
+			{
+				return Vector2(v.y * -s, v.x * s);
+			}
+			static inline const Vector2 Rotated(const Vector2& v, real degree)
+			{
+				real cosine = std::cos(degree);
+				real sine = std::sin(degree);
+				return Vector2(v.x * cosine + v.y * sine, v.x * -sine + v.y * cosine);
+			}
 		public:
 			inline Vector2()
 			{
@@ -63,11 +96,21 @@ namespace ip
 				y += v.y;
 				return *this;
 			}
+			inline Vector2& operator/=(real s)
+			{
+				x /= s;
+				y /= s;
+				return *this;
+			}
 			inline Vector2& operator-=(const Vector2& v)
 			{
 				x -= v.x;
 				y -= v.y;
 				return *this;
+			}
+			inline const Vector2 operator-() const
+			{
+				return Vector2(-x, -y);
 			}
 			inline Vector2& Normalization()
 			{
@@ -85,35 +128,35 @@ namespace ip
 			{
 				return std::sqrt(x * x + y * y);
 			}
+			inline real SquaredLength() const
+			{
+				return x * x + y * y;
+			}
 			inline Vector2& Rotate(real degree)
 			{
 				real cosine = std::cos(degree);
 				real sine = std::sin(degree);
 				Vector2 old = *this;
-				this->x = old.x * cosine - old.y * sine;
-				this->y = old.x * sine + old.y * cosine;
+				this->x = old.x * cosine + old.y * sine;
+				this->y = old.x * -sine + old.y * cosine;
 				return *this;
-			}
-			static inline real Dot(const Vector2& v1, const Vector2& v2)
-			{
-				return v1.x * v2.x + v1.y * v2.y;
-			}
-			static inline const Vector2 Rotated(const Vector2& v, real degree)
-			{
-				real cosine = std::cos(degree);
-				real sine = std::sin(degree);
-				return Vector2(v.x * cosine - v.y * sine, v.x * sine + v.y * cosine);
 			}
 		public:
 			real x;
 			real y;
 		};
 
+
 		// ==============================================================
 		// Non-member functions
 		inline bool operator==(const Vector2& v1, const Vector2& v2)
 		{
 			return v1.x == v2.x && v1.y == v2.y ? true : false;
+		}
+
+		inline bool operator!=(const Vector2& v1, const Vector2& v2)
+		{
+			return v1.x != v2.x || v1.y != v2.y ? true : false;
 		}
 
 		inline const Vector2 operator+(const Vector2& v1, const Vector2& v2)
@@ -243,5 +286,10 @@ namespace ip
 			);
 		}
 		// ==============================================================
+
+		inline const Vector2 operator*(const Vector2& v, const Matrix3x2R& mat)
+		{
+			return Vector2(v.x * mat._11 + v.y * mat._21 + mat._31, v.x * mat._12 + v.y * mat._22 + mat._32);
+		}
 	}
 }

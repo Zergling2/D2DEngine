@@ -31,13 +31,13 @@ void TestScene02::OnStart()
     Log::Print(Log::Type::LT_INFO, "TestScene02::OnStart");
 #endif // _DEBUG
 
-    Square* pPlayer = new Square(ActiveFlag(true), L"박스1", ObjectTag::Default);
-    pPlayer->GetTransform().SetPosition(D2D_VECTOR_2F{ -500.0f, 300.0f });
-    AddObject(pPlayer, LayerType::Player);
-
-    Circle* pCircle = new Circle(ActiveFlag(true), L"원1", ObjectTag::Default);
-    pCircle->GetTransform().SetPosition(D2D_VECTOR_2F{ 200.0f, 200.0f });
-    AddObject(pCircle, LayerType::Interactable);
+    // Square* pPlayer = new Square(ActiveFlag(true), L"박스1", ObjectTag::Default);
+    // pPlayer->GetTransform().SetPosition(D2D_VECTOR_2F{ -500.0f, 300.0f });
+    // AddObject(pPlayer, LayerType::Player);
+    // 
+    // Circle* pCircle = new Circle(ActiveFlag(true), L"원1", ObjectTag::Default);
+    // pCircle->GetTransform().SetPosition(D2D_VECTOR_2F{ 200.0f, 200.0f });
+    // AddObject(pCircle, LayerType::Interactable);
 }
 
 void TestScene02::CreateDeviceDependentResources()

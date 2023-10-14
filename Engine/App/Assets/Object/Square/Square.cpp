@@ -2,16 +2,44 @@
 #include "Core\Engine.h"
 #include "App\Scene\SceneId.h"
 
-Square::Square(D2DEngine::ActiveFlag flag, const wchar_t* name, D2DEngine::ObjectTag tag)
-	: GameObject(flag, name, tag)
-	, m_pSquare(nullptr)
+Square::Square(const D2D_RECT_F& shape)
+	: GameObject()
+	, m_pShape(nullptr)
+	, m_pCollider(nullptr)
 {
-	m_pSquare = new D2DEngine::Rectangle(this, D2D_RECT_F{ -25.0f, 25.0f, 25.0f, -25.0f });
+	m_pShape = new D2DEngine::Rectangle(this, shape);
+}
+
+Square::Square(D2DEngine::ActiveFlag flag, const wchar_t* name, const D2D_RECT_F& shape, D2DEngine::ObjectTag tag)
+	: GameObject(flag, name, tag)
+	, m_pShape(nullptr)
+	, m_pCollider(nullptr)
+{
+	m_pShape = new D2DEngine::Rectangle(this, shape);
 }
 
 Square::~Square()
 {
-	SafeDeleteScalar(m_pSquare);
+	SafeDeleteScalar(m_pShape);
+	
+	if (m_pCollider)
+	{
+		D2DEngine::Engine::GetInstance().GetPhysicsProcessor().RemoveCollider(m_pCollider);
+		m_pCollider = nullptr;
+	}
+}
+
+bool Square::CreateCollider(const ip::math::Vector2 convexShapeVerticesCCW[], uint32_t vertexCount)
+{
+	if (m_pCollider)
+		return false;
+	m_pCollider = D2DEngine::Engine::GetInstance().GetPhysicsProcessor().CreatePolygonCollider(convexShapeVerticesCCW, vertexCount);
+	return true;
+}
+
+bool Square::RemoveCollider()
+{
+	return D2DEngine::Engine::GetInstance().GetPhysicsProcessor().RemoveCollider(m_pCollider);
 }
 
 void Square::Start()
@@ -31,37 +59,6 @@ void Square::Awake()
 
 void Square::FixedUpdate()
 {
-	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
-	{
-		this->GetTransform().Translate(-2.0f, 0.0f);
-	}
-
-	if (GetAsyncKeyState(VK_UP) & 0x8000)
-	{
-		this->GetTransform().Translate(0.0f, 2.0f);
-	}
-
-	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
-	{
-		this->GetTransform().Translate(+2.0f, 0.0f);
-	}
-
-	if (GetAsyncKeyState(VK_DOWN) & 0x8000)
-	{
-		this->GetTransform().Translate(0.0f, -2.0f);
-	}
-
-	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
-	{
-		if (D2DEngine::SceneManager::GetInstance().GetCurrentSceneId() == static_cast<int>(SceneId::TestScene01))
-		{
-			D2DEngine::SceneManager::GetInstance().LoadScene(static_cast<int>(SceneId::TestScene02));
-		}
-		else if (D2DEngine::SceneManager::GetInstance().GetCurrentSceneId() == static_cast<int>(SceneId::TestScene02))
-		{
-			D2DEngine::SceneManager::GetInstance().LoadScene(static_cast<int>(SceneId::TestScene01));
-		}
-	}
 }
 
 void Square::Update()
@@ -77,5 +74,27 @@ void Square::OnDestroy()
 
 void Square::OnRender()
 {
-	m_pSquare->Render();
+	if (!m_pShape->CheckEnable() || !m_pShape->m_pShape)
+		return;
+
+	static ID2D1SolidColorBrush* pRedBrush = nullptr;
+	static bool c = false;
+
+	if (!c)
+	{
+		if (FAILED(D2DEngine::Engine::GetInstance().GetRenderTarget()->CreateSolidColorBrush(D2D1::ColorF(0.9f, 0.1f, 0.1f, 0.5f), &pRedBrush)))
+			OutputDebugString(_T("CreateSolidColorBrush() FAILED"));
+		else
+			c = true;
+	}
+
+	// RigidBody Transform 사용
+	// GameObject::Transform 사용 X
+
+	D2D1::Matrix3x2F wMat = D2D1::Matrix3x2F::Rotation(m_pCollider->m_orientation) *
+		D2D1::Matrix3x2F::Translation(m_pCollider->m_position.x, m_pCollider->m_position.y);
+	D2DEngine::Engine::GetInstance().SetRenderingTransform(wMat);
+
+	D2DEngine::Engine::GetInstance().GetRenderTarget()->FillGeometry(m_pShape->m_pShape, pRedBrush, NULL);
+	D2DEngine::Engine::GetInstance().GetRenderTarget()->DrawGeometry(m_pShape->m_pShape, pRedBrush, 1.0f, NULL);
 }

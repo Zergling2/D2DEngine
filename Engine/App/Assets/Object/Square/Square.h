@@ -5,8 +5,15 @@
 class Square : public D2DEngine::GameObject
 {
 public:
-	Square(D2DEngine::ActiveFlag flag, const wchar_t* name, D2DEngine::ObjectTag tag = D2DEngine::ObjectTag::Default);
+	Square(const D2D_RECT_F& shape);
+	Square(D2DEngine::ActiveFlag flag, const wchar_t* name, const D2D_RECT_F& shape, D2DEngine::ObjectTag tag = D2DEngine::ObjectTag::Default);
 	virtual ~Square() override;
+
+	ip::PolygonCollider* Collider() { return m_pCollider; }
+	
+	bool CreateCollider(const ip::math::Vector2 convexShapeVerticesCCW[], uint32_t vertexCount);
+
+	bool RemoveCollider();
 
 	// ===========================================================================================
 	virtual void Start() override;
@@ -42,5 +49,7 @@ public:
 
 	// ===========================================================================================
 private:
-	D2DEngine::Rectangle* m_pSquare;
+	D2DEngine::Rectangle* m_pShape;
+
+	ip::PolygonCollider* m_pCollider;
 };

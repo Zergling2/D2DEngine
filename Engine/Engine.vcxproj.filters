@@ -67,6 +67,9 @@
     <Filter Include="App\Assets\Object\Circle">
       <UniqueIdentifier>{29a31d0d-819e-4926-b255-e847974e0dc5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="App\Assets\Object\ControllableRectangle">
+      <UniqueIdentifier>{61a132bb-3f0a-4e23-a785-4e1d9dfc50f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -140,6 +143,9 @@
     </ClCompile>
     <ClCompile Include="App\Scene\TestScene02.cpp">
       <Filter>App\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="App\Assets\Object\ControllableRectangle\ControllableRectangle.cpp">
+      <Filter>App\Assets\Object\ControllableRectangle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +229,9 @@
     </ClInclude>
     <ClInclude Include="App\Scene\TestScene02.h">
       <Filter>App\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Assets\Object\ControllableRectangle\ControllableRectangle.h">
+      <Filter>App\Assets\Object\ControllableRectangle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

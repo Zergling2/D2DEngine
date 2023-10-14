@@ -132,21 +132,29 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Common\Math2D.h" />
-    <ClInclude Include="Components\BoxCollider.h" />
     <ClInclude Include="Components\CircleCollider.h" />
     <ClInclude Include="Components\Collider.h" />
+    <ClInclude Include="Components\Line.h" />
+    <ClInclude Include="Components\Manifold.h" />
+    <ClInclude Include="Components\PolygonCollider.h" />
+    <ClInclude Include="Components\Query.h" />
     <ClInclude Include="Components\RigidBody.h" />
+    <ClInclude Include="Components\Simplex.h" />
     <ClInclude Include="Core\Acc\AABB.h" />
     <ClInclude Include="Core\Processor\Processor.h" />
     <ClInclude Include="Type.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Common\Math2D.cpp" />
-    <ClCompile Include="Components\BoxCollider.cpp" />
     <ClCompile Include="Components\CircleCollider.cpp" />
+    <ClCompile Include="Components\PolygonCollider.cpp" />
     <ClCompile Include="Components\RigidBody.cpp" />
+    <ClCompile Include="Components\Simplex.cpp" />
     <ClCompile Include="Core\Acc\AABB.cpp" />
     <ClCompile Include="Core\Processor\Processor.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="InstantPhysics.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

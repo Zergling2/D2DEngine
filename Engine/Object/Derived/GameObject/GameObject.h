@@ -3,6 +3,7 @@
 #include "Headers\Essential.h"
 #include "Object\Object.h"
 #include "Components\Derived\Transform.h"
+#include "InstantPhysics.h"
 
 namespace D2DEngine
 {
@@ -24,6 +25,7 @@ namespace D2DEngine
 		// static GameObject* FindWithTag(const std::string& tag);
 		// ==================================================
 	public:
+		GameObject();
 		GameObject(ActiveFlag flag, const wchar_t* name, ObjectTag tag = ObjectTag::Default);
 		GameObject(ActiveFlag flag, const std::wstring& name, ObjectTag tag = ObjectTag::Default);
 		virtual ~GameObject() = 0;
@@ -70,7 +72,6 @@ namespace D2DEngine
 		// 파생 클래스에서..
 		// Sample
 		// 
-		// ip::RigidBody* m_pRigidBody;
 		// ip::Collider* m_pCollider;
 	};
 }

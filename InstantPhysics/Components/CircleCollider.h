@@ -7,20 +7,18 @@ namespace ip
 	class CircleCollider : public Collider
 	{
 	public:
-		inline CircleCollider(real centerX, real centerY, real radius)
+		inline CircleCollider(real radius)
 			: Collider(ColliderType::Circle)
 			, m_radius(radius)
 		{
-		}
-		inline CircleCollider(const math::Vector2& m_center, real radius)
-			: Collider(ColliderType::Circle)
-			, m_radius(radius)
-		{
+			
 		}
 		virtual ~CircleCollider() override {}
 		// ==========================================================================
-		virtual void CalculateAABB(struct AABB* const pAABB, const class RigidBody* const pRigidBody) override {}
-		void GetMinMax(const math::Vector2& center, const math::Vector2& projVector, real* pMin, real* pMax) const;
+		// [Parameter]
+		// 1. const math::Vector2& direction: world vector
+		virtual const math::Vector2 SupportPoint(const math::Vector2& direction) const override;	// 월드 좌표, 월드 벡터에 대해 수행
+		virtual void ComputeAABB();
 	public:
 		real m_radius;
 	};

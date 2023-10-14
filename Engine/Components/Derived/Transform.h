@@ -111,6 +111,6 @@ namespace D2DEngine
 	public:
 		D2D_VECTOR_2F m_position;
 		D2D_VECTOR_2F m_scale;
-		float m_orientation;		// Unit: Degree
+		float m_orientation;		// degree
 	};
 }

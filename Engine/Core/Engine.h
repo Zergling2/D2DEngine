@@ -42,7 +42,11 @@ namespace D2DEngine
 		int Run();
 		void Stop();
 		inline ID2D1Factory* GetFactory() const { return m_pDirect2dFactory; }
+
+		inline void CacheVPMatrix(D2D1::Matrix3x2F& vpMatrix) { m_vpMatrixCache = vpMatrix; }
+		inline void SetRenderingTransform(D2D1::Matrix3x2F& wMat) { m_pRenderTarget->SetTransform(wMat * m_vpMatrixCache); }
 		inline ID2D1RenderTarget* GetRenderTarget() const { return m_pRenderTarget; }
+		inline ip::Processor& GetPhysicsProcessor() { return m_physicsProcessor; }
 	private:
 		// Engine loop
 		void Release();
@@ -96,6 +100,8 @@ namespace D2DEngine
 		// class TagManager* m_pTagManager;
 		UINT m_width;		// Window width
 		UINT m_height;		// Window height
+		D2D1::Matrix3x2F m_vpMatrixCache;
+		ip::Processor m_physicsProcessor;
 	};
 
 

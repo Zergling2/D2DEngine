@@ -17,6 +17,7 @@
 #include "Headers\Macro.h"
 #include "Mathf\Mathf.h"
 #include "Core\Debug.h"
+#include "InstantPhysics.h"
 
 // ================== TYPEDEF ==================
 typedef long long InstanceID;
@@ -30,6 +31,4 @@ CONST ULONG RES_HEIGHT = 900UL;
 
 CONST UINT RENDER_FREQUENCY = 144U;
 CONST FLOAT RENDER_INTERVAL_TIME = 1.0F / (FLOAT)RENDER_FREQUENCY;
-CONST UINT FIXED_FREQUENCY = 60U;
-CONST FLOAT FIXED_DELTA_TIME = 1.0F / (FLOAT)FIXED_FREQUENCY;
 // ============================================

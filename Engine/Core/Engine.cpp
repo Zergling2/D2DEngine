@@ -136,6 +136,8 @@ void Engine::Loop()
 	if (SceneManager::GetInstance().m_sceneChangeFlag)
 	{
 		bool result = SceneManager::GetInstance().CreateNextScene();
+		Time::Tick();			// update timer
+		m_accumTime = 0.0f;
 		if (!result)
 			return;
 	}
@@ -155,9 +157,8 @@ void Engine::Loop()
 
 	while (m_accumTime >= FIXED_DELTA_TIME)
 	{
-		// PhysicsEngine::Update(); // ¿¹½Ã
-		
 		pCurrentScene->FixedUpdate();
+		m_physicsProcessor.Update();
 		m_accumTime -= FIXED_DELTA_TIME;
 	}
 
@@ -171,7 +172,7 @@ HRESULT Engine::RenderScene(Scene* pScene)
 	m_pRenderTarget->BeginDraw();
 	Engine::GetInstance().GetRenderTarget()->Clear(D2D1::ColorF(D2D1::ColorF::White));
 
-	pScene->OnEngineRender();
+	pScene->Render();
 
 	m_lastResult = m_pRenderTarget->EndDraw();
 

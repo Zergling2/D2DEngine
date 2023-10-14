@@ -1,0 +1,61 @@
+#include "BoxCollider.h"
+#include "Core\Acc\AABB.h"
+#include "Components\RigidBody.h"
+
+using namespace ip;
+
+void BoxCollider::ComputeAABB(AABB* const pAABB, const RigidBody* const pRigidBody)
+{
+
+}
+
+void BoxCollider::GetWorldMinMax(const math::Vector2& projAxis,real* pMin, real* pMax) const
+{
+	real dotValue[3];
+	real min;
+	real max;
+
+	min = max = math::Vector2::Dot(m_points[0], projAxis);
+	dotValue[0] = math::Vector2::Dot(m_points[1], projAxis);
+	dotValue[1] = math::Vector2::Dot(m_points[2], projAxis);
+	dotValue[2] = math::Vector2::Dot(m_points[3], projAxis);
+
+	if (min > dotValue[0]) min = dotValue[0];
+	if (max < dotValue[0]) max = dotValue[0];
+	if (min > dotValue[1]) min = dotValue[1];
+	if (max < dotValue[1]) max = dotValue[1];
+	if (min > dotValue[2]) min = dotValue[2];
+	if (max < dotValue[2]) max = dotValue[2];
+
+	*pMin = min;
+	*pMax = max;
+}
+
+const math::Vector2 BoxCollider::GetSupport(const math::Vector2& dir) const
+{
+	unsigned int bestProjectionIndex = 0;
+	real bestProjection = math::Vector2::Dot(m_points[0], dir);
+	real dotValue[3];
+
+	dotValue[0] = math::Vector2::Dot(m_points[1], dir);
+	dotValue[1] = math::Vector2::Dot(m_points[2], dir);
+	dotValue[2] = math::Vector2::Dot(m_points[3], dir);
+	
+	if (dotValue[0] > bestProjection)
+	{
+		bestProjection = dotValue[0];
+		bestProjectionIndex = 1;
+	}
+	if (dotValue[1] > bestProjection)
+	{
+		bestProjection = dotValue[1];
+		bestProjectionIndex = 2;
+	}
+	if (dotValue[2] > bestProjection)
+	{
+		bestProjection = dotValue[2];
+		bestProjectionIndex = 3;
+	}
+
+	return m_points[bestProjectionIndex];
+}

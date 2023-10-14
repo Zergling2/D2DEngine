@@ -77,12 +77,13 @@ void Scene::Update()
 	}
 }
 
-void Scene::OnEngineRender()
+void Scene::Render()
 {
 	if (m_pRenderingCamera == nullptr)		// 등록된 카메라 없으면 렌더링 생략
 		return;
 
-	D2D1::Matrix3x2F viewProjMatrix = m_pRenderingCamera->GetViewMatrix()* m_pRenderingCamera->GetProjectionMatrix();
+	D2D1::Matrix3x2F vpMatrix = m_pRenderingCamera->GetViewProjectionMatrix();
+	D2DEngine::Engine::GetInstance().CacheVPMatrix(vpMatrix);
 
 	for (UINT i = 0; i < static_cast<UINT>(LayerType::Count); i++)
 	{
@@ -95,8 +96,6 @@ void Scene::OnEngineRender()
 			// UI 처리
 			// 1. 처음부터 스크린 좌표 사용?
 			// 2. 항상 카메라 체이싱
-
-			Engine::GetInstance().GetRenderTarget()->SetTransform((*iter)->GetTransform().GetWorldMatrix() * viewProjMatrix);
 			(*iter)->OnRender();
 		}
 	}

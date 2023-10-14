@@ -40,6 +40,7 @@ namespace D2DEngine
 
 		// return old camera pointer
 		Camera* SetRenderingCamera(Camera* pCamera);		// 추후 뷰포트 설정 및 복수 카메라 지원
+		inline Camera* GetRenderingCamera() const { return m_pRenderingCamera; }
 
 		inline void SetZOrder(LayerType type, int zOrder) { m_layers[static_cast<UINT>(type)].SetZOrder(zOrder); }
 		inline int GetZOrder(LayerType type) const { m_layers[static_cast<UINT>(type)].GetZOrder(); }
@@ -48,7 +49,7 @@ namespace D2DEngine
 		void FixedUpdate();				// Engine에서 호출
 		void Update();					// Engine에서 호출
 		// void LateUpdate();			// Engine에서 호출
-		void OnEngineRender();			// Engine에서 호출
+		void Render();					// Engine에서 호출
 	private:		// Scene에서 사용할 멤버 함수
 
 		// Destroy 호출 대기 오브젝트들

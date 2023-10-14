@@ -1,16 +1,43 @@
 #include "Circle.h"
 #include "Core\Engine.h"
 
-Circle::Circle(D2DEngine::ActiveFlag flag, const wchar_t* name, D2DEngine::ObjectTag tag)
-	: GameObject(flag, name, tag)
-	, m_pCircle(nullptr)
+Circle::Circle(float radius)
+	: GameObject()
+	, m_pShape(nullptr)
 {
-	m_pCircle = new D2DEngine::Ellipse(this, D2D1_ELLIPSE{ D2D1_POINT_2F{0.0f, 0.0f}, 25.0f, 25.0f });
+	m_pShape = new D2DEngine::Ellipse(this, D2D1_ELLIPSE{ D2D1_POINT_2F{0.0f, 0.0f}, radius, radius });
+}
+
+Circle::Circle(D2DEngine::ActiveFlag flag, const wchar_t* name, float radius, D2DEngine::ObjectTag tag)
+	: GameObject(flag, name, tag)
+	, m_pShape(nullptr)
+{
+	m_pShape = new D2DEngine::Ellipse(this, D2D1_ELLIPSE{ D2D1_POINT_2F{0.0f, 0.0f}, radius, radius });
 }
 
 Circle::~Circle()
 {
-	SafeDeleteScalar(m_pCircle);
+	SafeDeleteScalar(m_pShape);
+
+	if (m_pCollider)
+	{
+		D2DEngine::Engine::GetInstance().GetPhysicsProcessor().RemoveCollider(m_pCollider);
+		m_pCollider = nullptr;
+	}
+}
+
+bool Circle::CreateCollider(float radius)
+{
+	if (m_pCollider)
+		return false;
+
+	m_pCollider = D2DEngine::Engine::GetInstance().GetPhysicsProcessor().CreateCircleCollider(radius);
+	return true;
+}
+
+bool Circle::RemoveCollider()
+{
+	return D2DEngine::Engine::GetInstance().GetPhysicsProcessor().RemoveCollider(m_pCollider);
 }
 
 void Circle::Start()
@@ -45,5 +72,26 @@ void Circle::OnDestroy()
 
 void Circle::OnRender()
 {
-	m_pCircle->Render();
+	if (!m_pShape->CheckEnable() || !m_pShape->m_pShape)
+		return;
+
+	static bool c = false;
+	static ID2D1SolidColorBrush* pGreenBrush = nullptr;
+
+	if (!c)
+	{
+		if (FAILED(D2DEngine::Engine::GetInstance().GetRenderTarget()->CreateSolidColorBrush(D2D1::ColorF(0.2f, 0.9f, 0.2f, 0.5f), &pGreenBrush)))
+			OutputDebugString(_T("CreateSolidColorBrush() FAILED"));
+		else
+			c = true;
+	}
+
+	// Collider Transform 사용
+	// GameObject::Transform 사용 X
+	D2D1::Matrix3x2F wMat = D2D1::Matrix3x2F::Rotation(m_pCollider->m_orientation) *
+		D2D1::Matrix3x2F::Translation(m_pCollider->m_position.x, m_pCollider->m_position.y);
+	D2DEngine::Engine::GetInstance().SetRenderingTransform(wMat);
+
+	D2DEngine::Engine::GetInstance().GetRenderTarget()->FillGeometry(m_pShape->m_pShape, pGreenBrush, NULL);
+	D2DEngine::Engine::GetInstance().GetRenderTarget()->DrawGeometry(m_pShape->m_pShape, pGreenBrush, 1.0f, NULL);
 }

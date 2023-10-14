@@ -1,11 +1,14 @@
 #include "CircleCollider.h"
+#include "Core\Acc\AABB.h"
+#include "Components\RigidBody.h"
 
 using namespace ip;
 
-void CircleCollider::GetMinMax(const math::Vector2& center, const math::Vector2& projVector, real* pMin, real* pMax) const
+const math::Vector2 CircleCollider::SupportPoint(const math::Vector2& direction) const
 {
-	real centerProj = math::Vector2::Dot(center, projVector);
+	return direction.Normalized() * m_radius + m_position;
+}
 
-	*pMin = centerProj - m_radius;
-	*pMax = centerProj + m_radius;
+void CircleCollider::ComputeAABB()
+{
 }

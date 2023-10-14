@@ -1,17 +1,17 @@
 #pragma once
 #include "Object\Derived\GameObject\GameObject.h"
-#include "Components\Derived\GraphicComponents\Derived\Geometry\Derived\Ellipse.h"
+#include "Components\Derived\GraphicComponents\Derived\Geometry\Derived\Rectangle.h"
 
-class Circle : public D2DEngine::GameObject
+class ControllableRectangle : public D2DEngine::GameObject
 {
 public:
-	Circle(float radius);
-	Circle(D2DEngine::ActiveFlag flag, const wchar_t* name, float radius, D2DEngine::ObjectTag tag = D2DEngine::ObjectTag::Default);
-	virtual ~Circle() override;
+	ControllableRectangle(const D2D_RECT_F& shape);
+	ControllableRectangle(D2DEngine::ActiveFlag flag, const wchar_t* name, const D2D_RECT_F& shape, D2DEngine::ObjectTag tag = D2DEngine::ObjectTag::Default);
+	virtual ~ControllableRectangle() override;
 
-	ip::CircleCollider* Collider() { return m_pCollider; }
+	ip::PolygonCollider* Collider() { return m_pCollider; }
 
-	bool CreateCollider(float radius);
+	bool CreateCollider(const ip::math::Vector2 convexShapeVerticesCCW[], uint32_t vertexCount);
 
 	bool RemoveCollider();
 
@@ -49,7 +49,7 @@ public:
 
 	// ===========================================================================================
 private:
-	D2DEngine::Ellipse* m_pShape;
+	D2DEngine::Rectangle* m_pShape;
 
-	ip::CircleCollider* m_pCollider;
+	ip::PolygonCollider* m_pCollider;
 };

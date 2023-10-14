@@ -17,7 +17,7 @@ Camera::~Camera()
 {
 }
 
-const D2D1::Matrix3x2F Camera::GetViewMatrix()
+const D2D1::Matrix3x2F Camera::GetViewMatrix() const
 {
 	return
 		D2D1::Matrix3x2F::Translation(-m_pos.x, -m_pos.y) *
@@ -25,7 +25,7 @@ const D2D1::Matrix3x2F Camera::GetViewMatrix()
 		D2D1::Matrix3x2F::Rotation(-m_orientation);
 }
 
-const D2D1::Matrix3x2F Camera::GetProjectionMatrix()
+const D2D1::Matrix3x2F Camera::GetProjectionMatrix() const
 {
 	D2D1_SIZE_F rtSize = Engine::GetInstance().GetRenderTarget()->GetSize();
 
