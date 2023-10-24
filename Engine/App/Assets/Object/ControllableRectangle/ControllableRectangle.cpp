@@ -62,22 +62,26 @@ void ControllableRectangle::FixedUpdate()
 {
 	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
 	{
-		m_pCollider->m_position.x -= 2.0f;
+		m_pCollider->GetRigidBody()->m_force.x -= 200.0;
+		// m_pCollider->m_position.x -= 2.0f;
 	}
 
 	if (GetAsyncKeyState(VK_UP) & 0x8000)
 	{
-		m_pCollider->m_position.y += 2.0f;
+		m_pCollider->GetRigidBody()->m_force.y += 200.0;
+		// m_pCollider->m_position.y += 2.0f;
 	}
 
 	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
 	{
-		m_pCollider->m_position.x += 2.0f;
+		m_pCollider->GetRigidBody()->m_force.x += 200.0;
+		// m_pCollider->m_position.x += 2.0f;
 	}
 
 	if (GetAsyncKeyState(VK_DOWN) & 0x8000)
 	{
-		m_pCollider->m_position.y -= 2.0f;
+		m_pCollider->GetRigidBody()->m_force.y -= 200.0;
+		// m_pCollider->m_position.y -= 2.0f;
 	}
 
 	if (GetAsyncKeyState('Q') & 0x8000)

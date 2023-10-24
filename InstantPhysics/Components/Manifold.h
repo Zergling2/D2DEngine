@@ -6,8 +6,8 @@ namespace ip
 {
 	struct Manifold
 	{
-		class RigidBody* pRigidBodyA;
-		class RigidBody* pRigidBodyB;
+		class Collider* pColliderA;
+		class Collider* pColliderB;
 		math::Vector2 collisionNormal;
 		real penetrationDepth;
 	};

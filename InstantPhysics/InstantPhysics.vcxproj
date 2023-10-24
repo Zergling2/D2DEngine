@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Common\Math2D.h" />
+    <ClInclude Include="Common\Parameters.h" />
     <ClInclude Include="Components\CircleCollider.h" />
     <ClInclude Include="Components\Collider.h" />
     <ClInclude Include="Components\Line.h" />
@@ -147,6 +148,7 @@
   <ItemGroup>
     <ClCompile Include="Common\Math2D.cpp" />
     <ClCompile Include="Components\CircleCollider.cpp" />
+    <ClCompile Include="Components\Collider.cpp" />
     <ClCompile Include="Components\PolygonCollider.cpp" />
     <ClCompile Include="Components\RigidBody.cpp" />
     <ClCompile Include="Components\Simplex.cpp" />

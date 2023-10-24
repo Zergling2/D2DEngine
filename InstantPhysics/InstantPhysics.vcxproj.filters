@@ -39,6 +39,7 @@
     <ClCompile Include="Components\Simplex.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="Components\Collider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\RigidBody.h">
@@ -75,6 +76,7 @@
     <ClInclude Include="Components\Simplex.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="Common\Parameters.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="InstantPhysics.h" />

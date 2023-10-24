@@ -37,7 +37,7 @@ namespace ip
 		static void WorldTransformPolygonVertices(class PolygonCollider& polygonCollider);
 		// static const math::Vector2 MinkowskiSupport(const class PolygonCollider& polygonColliderA, const class PolygonCollider& polygonColliderB, const math::Vector2& direction);
 		static void Step(class RigidBody& rigidBody);
-		static bool CheckCollisionCircleToCircle(Manifold* pManifold, const class CircleCollider& circleColliderA, const class CircleCollider& circleColliderB);
+		static bool CheckCollisionCircleToCircle(Manifold* pManifold, const class CircleCollider& circleColliderA, class CircleCollider& circleColliderB);
 		static bool CheckCollisionCircleToPolygon(Manifold* pManifold, const class CircleCollider& circleCollider, const class PolygonCollider& polygonCollider);
 		static bool CheckCollisionPolygonToPolygon(Manifold* pManifold, const class PolygonCollider& polygonColliderA, const class PolygonCollider& polygonColliderB);
 	private:

@@ -29,7 +29,6 @@ public:
 
 	// 씬이 제거될 때 한 번만 호출됨
 	virtual void OnDestroy() override;
-
 	// ========================================================================================
 private:
 	D2DEngine::Camera* pCamera;

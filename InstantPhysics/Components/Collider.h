@@ -38,11 +38,12 @@ namespace ip
 			, m_pRigidBody(nullptr)
 		{
 		}
-		virtual ~Collider() = 0 {}
+		virtual ~Collider();
 		inline ColliderType GetType() const { return m_type; }
-		inline class RigidBody* Body() const { return m_pRigidBody; }
+		inline class RigidBody* GetRigidBody() const { return m_pRigidBody; }
 		virtual const math::Vector2 SupportPoint(const math::Vector2& direction) const = 0;
 		virtual void ComputeAABB() = 0;
+		bool CreateRigidBody(real mass, real inertia, real restitution, bool isStatic);
 	public:
 		ColliderType m_type;
 		AABB m_AABB;

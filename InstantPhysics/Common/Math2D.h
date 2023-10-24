@@ -50,6 +50,11 @@ namespace ip
 		public:
 			static const Vector2 zero;
 		public:
+			static inline const Vector2 Normalized(const Vector2& v)
+			{
+				real length = std::sqrt(v.x * v.x + v.y * v.y);
+				return Vector2(v.x / length, v.y / length);
+			}
 			static inline real Dot(const Vector2& v1, const Vector2& v2)
 			{
 				return v1.x * v2.x + v1.y * v2.y;
@@ -114,15 +119,10 @@ namespace ip
 			}
 			inline Vector2& Normalization()
 			{
-				real k = std::sqrt(x * x + y * y);
-				x /= k;
-				y /= k;
+				real length = std::sqrt(x * x + y * y);
+				x /= length;
+				y /= length;
 				return *this;
-			}
-			inline const Vector2 Normalized() const
-			{
-				real k = std::sqrt(x * x + y * y);
-				return Vector2(x / k, y / k);
 			}
 			inline real Length() const
 			{
