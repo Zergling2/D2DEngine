@@ -111,47 +111,53 @@ void Processor::CollisionDetection()
         ++j;
         while (j != end)
         {
-            ColliderType typeA = (*i)->GetType();
-            ColliderType typeB = (*j)->GetType();
-
-            switch (typeA)
+            do
             {
-            case ColliderType::Circle:
-                switch (typeB)
+                const Collider& colliderA = **i;
+                const Collider& colliderB = **j;
+
+                if (colliderA.GetRigidBody()->m_isStatic && colliderB.GetRigidBody()->m_isStatic)
+                    break;
+
+                switch (colliderA.GetType())
                 {
                 case ColliderType::Circle:
-                    result = CheckCollisionCircleToCircle(&m, reinterpret_cast<CircleCollider&>(**i), reinterpret_cast<CircleCollider&>(**j));
+                    switch (colliderB.GetType())
+                    {
+                    case ColliderType::Circle:
+                        result = CheckCollisionCircleToCircle(&m, reinterpret_cast<const CircleCollider&>(colliderA), reinterpret_cast<const CircleCollider&>(colliderB));
+                        break;
+                    case ColliderType::Polygon:
+                        result = CheckCollisionCircleToPolygon(&m, reinterpret_cast<const CircleCollider&>(colliderA), reinterpret_cast<const PolygonCollider&>(colliderB));
+                        break;
+                    default:
+                        *reinterpret_cast<int*>(0x00000000) = 0;
+                        break;
+                    }
                     break;
                 case ColliderType::Polygon:
-                    result = CheckCollisionCircleToPolygon(&m, reinterpret_cast<CircleCollider&>(**i), reinterpret_cast<PolygonCollider&>(**j));
+                    switch (colliderB.GetType())
+                    {
+                    case ColliderType::Circle:
+                        result = CheckCollisionCircleToPolygon(&m, reinterpret_cast<const CircleCollider&>(colliderB), reinterpret_cast<const PolygonCollider&>(colliderA));
+                        break;
+                    case ColliderType::Polygon:
+                        result = CheckCollisionPolygonToPolygon(&m, reinterpret_cast<const PolygonCollider&>(colliderA), reinterpret_cast<const PolygonCollider&>(colliderB));
+                        break;
+                    default:
+                        *reinterpret_cast<int*>(0x00000000) = 0;
+                        break;
+                    }
                     break;
                 default:
-                    *reinterpret_cast<int*>(0x00000000) = 0;
                     break;
                 }
-                break;
-            case ColliderType::Polygon:
-                switch (typeB)
-                {
-                case ColliderType::Circle:
-                    result = CheckCollisionCircleToPolygon(&m, reinterpret_cast<CircleCollider&>(**j), reinterpret_cast<PolygonCollider&>(**i));
-                    break;
-                case ColliderType::Polygon:
-                    result = CheckCollisionPolygonToPolygon(&m, reinterpret_cast<PolygonCollider&>(**i), reinterpret_cast<PolygonCollider&>(**j));
-                    break;
-                default:
-                    *reinterpret_cast<int*>(0x00000000) = 0;
-                    break;
-                }
-                break;
-            default:
-                break;
-            }
 
-            if (result)
-            {
-                m_resolveList.push_back(m);
-            }
+                if (result)
+                {
+                    m_resolveList.push_back(m);
+                }
+            } while (false);
             ++j;
         }
         ++i;
@@ -169,12 +175,6 @@ void Processor::ResolveCollision()
             const Manifold& manifold = *iter;
             RigidBody& rigidBodyA = *manifold.pColliderA->m_pRigidBody;
             RigidBody& rigidBodyB = *manifold.pColliderB->m_pRigidBody;
-            
-            // if (!pRigidBodyA->m_isStatic)
-            //     manifold.pColliderA->m_position -= math::Vector2(manifold.collisionNormal * manifold.penetrationDepth / real(2.0));
-            // if (!pRigidBodyB->m_isStatic)
-            //     manifold.pColliderB->m_position += math::Vector2(manifold.collisionNormal * manifold.penetrationDepth / real(2.0));
-            
 
             math::Vector2 rVel = rigidBodyB.m_linearVelocity - rigidBodyA.m_linearVelocity;
         
@@ -232,7 +232,7 @@ void Processor::Step(RigidBody& rigidBody)
     // rigidBody.m_pos += rigidBody.m_linearVelocity * FIXED_DELTA_TIME;
 }
 
-bool Processor::CheckCollisionCircleToCircle(Manifold* pManifold, const CircleCollider& circleColliderA, CircleCollider& circleColliderB)
+bool Processor::CheckCollisionCircleToCircle(Manifold* pManifold, const CircleCollider& circleColliderA, const CircleCollider& circleColliderB)
 {
     math::Vector2 v = circleColliderB.m_position - circleColliderA.m_position;
     real distancePower2 = v.SquaredLength();

@@ -23,7 +23,7 @@ namespace ip
 			, m_restitution(restitution)
 			, m_isStatic(isStatic)
 		{
-			if (m_isStatic)
+			if (isStatic)
 				m_invMass = real(0.0);
 		}
 		inline ~RigidBody()
