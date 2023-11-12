@@ -155,14 +155,18 @@ void Engine::Loop()
 	// if (accumulator > 0.2f)
 	// 	accumulator = 0.2f
 
-	while (m_accumTime >= FIXED_DELTA_TIME)
+	while (m_accumTime >= ip::parameter::PHYSICS_UPDATE_INTERVAL)
 	{
+#ifdef _DEBUG
+		m_physicsProcessor.m_cpList.clear();
+#endif // _DEBUG
 		pCurrentScene->FixedUpdate();
 		m_physicsProcessor.Update();
-		m_accumTime -= FIXED_DELTA_TIME;
+		m_accumTime -= ip::parameter::PHYSICS_UPDATE_INTERVAL;
 	}
 
 	pCurrentScene->Update();
+	
 	// pCurrentScene->LateUpdate();
 	RenderScene(pCurrentScene);			// Render App
 }
@@ -173,6 +177,28 @@ HRESULT Engine::RenderScene(Scene* pScene)
 	Engine::GetInstance().GetRenderTarget()->Clear(D2D1::ColorF(D2D1::ColorF::White));
 
 	pScene->Render();
+#ifdef _DEBUG
+	static bool first = true;
+	static ID2D1RectangleGeometry* m_pShape;
+	static D2D_RECT_F rect = { -1.0f, 1.0f, 1.0f, -1.0f };
+	static ID2D1SolidColorBrush* pBlackBrush = nullptr;
+	if (first)
+	{
+		Engine::GetInstance().GetRenderTarget()->CreateSolidColorBrush(D2D1::ColorF(0.0f, 0.0f, 0.0f, 1.0f), &pBlackBrush);
+		Engine::GetInstance().GetFactory()->CreateRectangleGeometry(rect, &m_pShape);
+	}
+
+	auto end = m_physicsProcessor.m_cpList.end();
+	for (auto iter = m_physicsProcessor.m_cpList.begin(); iter != end; ++iter)
+	{
+		D2D1::Matrix3x2F wMat = D2D1::Matrix3x2F::Translation((*iter).x, (*iter).y);
+		D2DEngine::Engine::GetInstance().SetRenderingTransform(wMat);
+
+		D2DEngine::Engine::GetInstance().GetRenderTarget()->FillGeometry(m_pShape, pBlackBrush, NULL);
+		D2DEngine::Engine::GetInstance().GetRenderTarget()->DrawGeometry(m_pShape, pBlackBrush, 1.0f, NULL);
+	}
+
+#endif // _DEBUG
 
 	m_lastResult = m_pRenderTarget->EndDraw();
 

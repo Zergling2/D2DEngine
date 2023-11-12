@@ -30,11 +30,11 @@ ControllableRectangle::~ControllableRectangle()
 	}
 }
 
-bool ControllableRectangle::CreateCollider(const ip::math::Vector2 convexShapeVerticesCCW[], uint32_t vertexCount)
+bool ControllableRectangle::CreateCollider(ip::math::Size2 size)
 {
 	if (m_pCollider)
 		return false;
-	m_pCollider = D2DEngine::Engine::GetInstance().GetPhysicsProcessor().CreatePolygonCollider(convexShapeVerticesCCW, vertexCount);
+	m_pCollider = D2DEngine::Engine::GetInstance().GetPhysicsProcessor().CreateBoxCollider(size);
 	return true;
 }
 
@@ -62,36 +62,38 @@ void ControllableRectangle::FixedUpdate()
 {
 	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
 	{
-		m_pCollider->GetRigidBody()->m_force.x -= 200.0;
-		// m_pCollider->m_position.x -= 2.0f;
+		// m_pCollider->GetRigidBody().m_force.x -= 2000.0;
+		m_pCollider->MoveX(-2.0);
 	}
 
 	if (GetAsyncKeyState(VK_UP) & 0x8000)
 	{
-		m_pCollider->GetRigidBody()->m_force.y += 200.0;
-		// m_pCollider->m_position.y += 2.0f;
+		// m_pCollider->GetRigidBody().m_force.y += 2000.0;
+		m_pCollider->MoveY(2.0);
 	}
 
 	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
 	{
-		m_pCollider->GetRigidBody()->m_force.x += 200.0;
-		// m_pCollider->m_position.x += 2.0f;
+		// m_pCollider->GetRigidBody().m_force.x += 2000.0;
+		m_pCollider->MoveX(2.0);
 	}
 
 	if (GetAsyncKeyState(VK_DOWN) & 0x8000)
 	{
-		m_pCollider->GetRigidBody()->m_force.y -= 200.0;
-		// m_pCollider->m_position.y -= 2.0f;
+		// m_pCollider->GetRigidBody().m_force.y -= 2000.0;
+		m_pCollider->MoveY(-2.0);
 	}
 
 	if (GetAsyncKeyState('Q') & 0x8000)
 	{
-		m_pCollider->m_orientation += 2.0f;
+		// m_pCollider->GetRigidBody().m_torque += 2.0;
+		m_pCollider->Rotate(D2DEngine::Mathf::DegreeToRadian(2.0f));
 	}
 
 	if (GetAsyncKeyState('E') & 0x8000)
 	{
-		m_pCollider->m_orientation -= 2.0f;
+		// m_pCollider->GetRigidBody().m_torque -= 2.0;
+		m_pCollider->Rotate(D2DEngine::Mathf::DegreeToRadian(-2.0f));
 	}
 
 	// if (GetAsyncKeyState(VK_SPACE) & 0x8000)
@@ -137,8 +139,8 @@ void ControllableRectangle::OnRender()
 	// RigidBody Transform 사용
 	// GameObject::Transform 사용 X
 
-	D2D1::Matrix3x2F wMat = D2D1::Matrix3x2F::Rotation(m_pCollider->m_orientation) *
-		D2D1::Matrix3x2F::Translation(m_pCollider->m_position.x, m_pCollider->m_position.y);
+	D2D1::Matrix3x2F wMat = D2D1::Matrix3x2F::Rotation(D2DEngine::Mathf::RadianToDegree(m_pCollider->GetRotation())) *
+		D2D1::Matrix3x2F::Translation(m_pCollider->GetPosition().x, m_pCollider->GetPosition().y);
 	D2DEngine::Engine::GetInstance().SetRenderingTransform(wMat);
 
 	D2DEngine::Engine::GetInstance().GetRenderTarget()->FillGeometry(m_pShape->m_pShape, pBlueBrush, NULL);

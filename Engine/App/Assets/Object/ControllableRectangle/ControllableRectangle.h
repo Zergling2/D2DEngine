@@ -9,9 +9,9 @@ public:
 	ControllableRectangle(D2DEngine::ActiveFlag flag, const wchar_t* name, const D2D_RECT_F& shape, D2DEngine::ObjectTag tag = D2DEngine::ObjectTag::Default);
 	virtual ~ControllableRectangle() override;
 
-	ip::PolygonCollider* Collider() { return m_pCollider; }
+	ip::HullCollider* Collider() { return m_pCollider; }
 
-	bool CreateCollider(const ip::math::Vector2 convexShapeVerticesCCW[], uint32_t vertexCount);
+	bool CreateCollider(ip::math::Size2 size);
 
 	bool RemoveCollider();
 
@@ -51,5 +51,5 @@ public:
 private:
 	D2DEngine::Rectangle* m_pShape;
 
-	ip::PolygonCollider* m_pCollider;
+	ip::HullCollider* m_pCollider;
 };

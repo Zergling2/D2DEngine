@@ -212,7 +212,9 @@
   <ItemGroup>
     <ClCompile Include="App\Assets\Object\Circle\Circle.cpp" />
     <ClCompile Include="App\Assets\Object\ControllableRectangle\ControllableRectangle.cpp" />
+    <ClCompile Include="App\Assets\Object\Pentagon\Pentagon.cpp" />
     <ClCompile Include="App\Assets\Object\Square\Square.cpp" />
+    <ClCompile Include="App\Assets\Object\Triangle\Triangle.cpp" />
     <ClCompile Include="App\Scene\TestScene01.cpp" />
     <ClCompile Include="App\Scene\TestScene02.cpp" />
     <ClCompile Include="Components\Derived\GraphicComponents\Derived\Geometry\Derived\Ellipse.cpp" />
@@ -239,7 +241,9 @@
   <ItemGroup>
     <ClInclude Include="App\Assets\Object\Circle\Circle.h" />
     <ClInclude Include="App\Assets\Object\ControllableRectangle\ControllableRectangle.h" />
+    <ClInclude Include="App\Assets\Object\Pentagon\Pentagon.h" />
     <ClInclude Include="App\Assets\Object\Square\Square.h" />
+    <ClInclude Include="App\Assets\Object\Triangle\Triangle.h" />
     <ClInclude Include="App\Scene\TestScene01.h" />
     <ClInclude Include="App\Scene\TestScene02.h" />
     <ClInclude Include="Components\Derived\GraphicComponents\Derived\Geometry\Derived\Ellipse.h" />

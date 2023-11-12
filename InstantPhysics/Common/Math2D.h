@@ -7,7 +7,8 @@ namespace ip
 {
 	namespace math
 	{
-		const real PI = real(3.14159265358979);
+		constexpr real PI = real(3.14159265358979323846);
+		constexpr real PIx2 = real(3.14159265358979323846) * real(2.0);
 
 		struct Point2
 		{
@@ -200,8 +201,7 @@ namespace ip
 		struct Matrix3x2R;
 		inline const Matrix3x2R operator*(const Matrix3x2R& mat1, const Matrix3x2R& mat2);
 
-		// Matrix3x2[real]
-		struct Matrix3x2R
+		struct Matrix3x2R	// Matrix3x2[Real]
 		{
 		public:
 			inline Matrix3x2R()

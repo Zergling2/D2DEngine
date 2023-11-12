@@ -3,7 +3,7 @@
 
 using namespace D2DEngine;
 
-Polygon::Polygon(GameObject* pGameObj, D2D1_POINT_2F vArr[], UINT count)
+Polygon::Polygon(GameObject* pGameObj, const D2D1_POINT_2F vArr[], UINT count)
 	: Geometry(pGameObj)
 	, m_pShape(nullptr)
 {

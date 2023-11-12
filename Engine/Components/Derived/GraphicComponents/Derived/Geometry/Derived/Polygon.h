@@ -10,7 +10,7 @@ namespace D2DEngine
 		// [Parameters]
 		// D2D1_POINT_2F vArr[]: Vertex array
 		// UINT count: Number of vertex buffer items.
-		Polygon(GameObject* pGameObj, D2D1_POINT_2F vArr[], UINT count);
+		Polygon(GameObject* pGameObj, const D2D1_POINT_2F vArr[], UINT count);
 		virtual ~Polygon();
 
 		inline ID2D1PathGeometry* GetGeometry() { return m_pShape; }

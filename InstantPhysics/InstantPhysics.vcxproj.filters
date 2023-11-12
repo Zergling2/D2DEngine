@@ -33,13 +33,18 @@
     <ClCompile Include="Components\CircleCollider.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="Components\PolygonCollider.cpp">
+    <ClCompile Include="Components\HullCollider.cpp">
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="Components\Simplex.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="Components\Collider.cpp" />
+    <ClCompile Include="Core\Acc\SIMD.cpp">
+      <Filter>Core\Acc</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Collider.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\RigidBody.h">
@@ -70,13 +75,16 @@
     <ClInclude Include="Components\Line.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="Components\PolygonCollider.h">
+    <ClInclude Include="Components\HullCollider.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Components\Simplex.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Common\Parameters.h" />
+    <ClInclude Include="Core\Acc\SIMD.h">
+      <Filter>Core\Acc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="InstantPhysics.h" />

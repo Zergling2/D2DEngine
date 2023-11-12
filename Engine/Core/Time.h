@@ -22,7 +22,7 @@ namespace D2DEngine
 		static void Tick();
 	public:
 		bool static Initialize();
-		static inline float GetFixedDeltaTime() { return FIXED_DELTA_TIME; }
+		static inline float GetFixedDeltaTime() { return ip::parameter::PHYSICS_UPDATE_INTERVAL; }
 		static inline float GetRealDeltaTime() { return Time::s_deltaTime; }
 		static inline float GetDeltaTime() { return Time::s_deltaTime * Time::s_timeScale; }
 		static inline void SetTimeScale(float scale) { if (scale >= 0.0f) Time::s_timeScale = scale; }

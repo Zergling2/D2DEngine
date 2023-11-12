@@ -2,8 +2,8 @@
 
 namespace D2DEngine
 {
-	typedef float Radian;
-	typedef float Degree;
+	typedef float radian;
+	typedef float degree;
 
 	class Mathf
 	{
@@ -26,7 +26,7 @@ namespace D2DEngine
 			const int t = value < min ? min : value;
 			return t > max ? max : t;
 		}
-		static __forceinline float RadianToDegree(Radian radian) { return radian * (180.0F / Mathf::PI); }
-		static __forceinline float DegreeToRadian(Degree degree) { return degree * (Mathf::PI / 180.0F); }
+		static __forceinline float RadianToDegree(radian r) { return r * (180.0F / Mathf::PI); }
+		static __forceinline float DegreeToRadian(degree d) { return d * (Mathf::PI / 180.0F); }
 	};
 }

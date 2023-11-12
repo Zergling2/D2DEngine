@@ -1,6 +1,5 @@
 #include "Simplex.h"
-#include "Components\CircleCollider.h"
-#include "Components\PolygonCollider.h"
+#include "Components\Collider.h"
 #include "Components\Manifold.h"
 #include "Common\Parameters.h"
 
@@ -12,7 +11,8 @@ Simplex::State Simplex::EvolveSimplex()
     // [0] [1] [2]
     //  C   B   A
 
-    switch (m_vertices.size())
+    size_t vertexCount = m_vertices.size();
+    switch (vertexCount)
     {
     case size_t(0):
         // Simplex 최초 단계
@@ -48,8 +48,8 @@ Simplex::State Simplex::EvolveSimplex()
         math::Vector2 ab = m_vertices[1] - m_vertices[2];   // A to B
         math::Vector2 ac = m_vertices[0] - m_vertices[2];   // A to C
 
-        math::Vector2 abPerp = math::Vector2::Cross(math::Vector2::Cross(ac, ab), ab);
-        math::Vector2 acPerp = math::Vector2::Cross(math::Vector2::Cross(ab, ac), ac);
+        math::Vector2 abPerp = math::Vector2::Cross(math::Vector2::Cross(ac, ab), ab);  // 반드시 외적으로 구해야 함(단순히 R, L 노말로 안됨)
+        math::Vector2 acPerp = math::Vector2::Cross(math::Vector2::Cross(ab, ac), ac);  // 반드시 외적으로 구해야 함(단순히 R, L 노말로 안됨)
 
         if (math::Vector2::Dot(abPerp, ao) > real(0.0))
         {
@@ -79,45 +79,51 @@ Simplex::State Simplex::EvolveSimplex()
 
     math::Vector2 newVertex = m_pColliderA->SupportPoint(m_direction) - m_pColliderB->SupportPoint(-m_direction);
     m_vertices.push_back(newVertex);
-    if (math::Vector2::Dot(m_direction, newVertex) >= real(0.0))
+
+    if (math::Vector2::Dot(m_direction, newVertex) > real(0.0))     // >= 아닌 이유 (내적이 0이면 원점 방향으로 더 가지 못했기 때문에 확장 종료)
         return Simplex::State::Evolving;
     else
         return Simplex::State::NotIntersecting;
 }
 
-void Simplex::ComputeManifold(Manifold* pManifold)
+/*
+void Simplex::ComputeManifold(Manifold& manifold)
 {
     math::Vector2 closestEdgeNormal;			// Normalized vector
     real closestEdgeDistance;
-    uint32_t edgeIndex;
+    uint16_t edgeIndex;
 
     ConvertVerticesToCCW();
 
-    pManifold->pColliderA = const_cast<Collider*>(m_pColliderA);
-    pManifold->pColliderB = const_cast<Collider*>(m_pColliderB);
+    manifold.pReference = const_cast<Collider*>(m_pColliderA);
+    manifold.pIncident = const_cast<Collider*>(m_pColliderB);
 
-    for (unsigned int count = 0; count < EPA_ITERATION_MAX; count++)
+    for (unsigned int count = 0; count < parameter::EPA_ITERATION_MAX; count++)
     {
         FindClosestEdge(&closestEdgeNormal, &closestEdgeDistance, &edgeIndex);      // edgeIndex i <- vertex[i + 1] - vertex[i]
         math::Vector2 supportPoint = m_pColliderA->SupportPoint(closestEdgeNormal) - m_pColliderB->SupportPoint(-closestEdgeNormal);    // get new support point
         real distance = math::Vector2::Dot(supportPoint, closestEdgeNormal);        // new edge distance
 
-        pManifold->collisionNormal = closestEdgeNormal;
-        pManifold->penetrationDepth = closestEdgeDistance;
+        manifold.collisionNormal = closestEdgeNormal;
+        manifold.penetrationDepth = closestEdgeDistance;
+        // manifold.contact[0] = ;
+        // manifold.contact[1] = ;
+        // manifold.contactCount = ;
 
-        if (std::abs(distance - closestEdgeDistance) <= EPA_EPSILON)
+        if (std::abs(distance - closestEdgeDistance) <= parameter::EPA_EPSILON)
         {
             return;
         }
         else
         {
-            size_t offset = edgeIndex + 1;
+            size_t offset = static_cast<size_t>(edgeIndex) + 1;
             if (offset >= m_vertices.size())
                 offset = 0;
             m_vertices.insert(m_vertices.begin() + offset, supportPoint);
         }
     }
 }
+*/
 
 void Simplex::ConvertVerticesToCCW()
 {
@@ -131,30 +137,30 @@ void Simplex::ConvertVerticesToCCW()
         std::swap(m_vertices[1], m_vertices[2]);        // CCW로 바꿔준다.
 }
 
-void Simplex::FindClosestEdge(math::Vector2* pClosestEdgeNormal, real* pClosestEdgeDistance, uint32_t* pClosestEdgeIndex)
+void Simplex::FindClosestEdge(math::Vector2* pClosestEdgeNormal, real* pClosestEdgeDistance, uint16_t* pClosestEdgeIndex)
 {
     math::Vector2 edgeNormal;
     math::Vector2 closestEdgeNormal;
     real closestEdgeDistance;
-    uint32_t closestEdgeIndex;
+    uint16_t closestEdgeIndex;
 
     // 0번째 노말 벡터
     // Simplex vertex가 CCW 순서이므로
     // 바깥 방향으로 향하는 Right normal 사용 (x', y') = (y, -x)
     closestEdgeNormal = edgeNormal = 
-        math::Vector2::Normalized(math::Vector2(m_vertices[1].y - m_vertices[0].y, -(m_vertices[1].x - m_vertices[0].x)));
-    closestEdgeDistance = math::Vector2::Dot(m_vertices[0], edgeNormal);      // 원점으로부터 Edge 양끝 점 아무거나 (-부호), edgeNormal 내적 => 거리
+        math::Vector2::Normalized(math::Vector2(m_vertices[1].y - m_vertices[0].y, m_vertices[0].x - m_vertices[1].x));
+    closestEdgeDistance = math::Vector2::Dot(m_vertices[0], edgeNormal);      // 원점으로부터 Edge 양끝 점 아무거나, edgeNormal 내적 => 거리
     closestEdgeIndex = 0;
 
     // 1번째 ~ 노말 벡터
-    size_t vertexCount = m_vertices.size();
-    for (uint32_t index = 1; index < vertexCount; index++)
+    const size_t vertexCount = m_vertices.size();
+    for (uint16_t index = 1; index < vertexCount; index++)
     {
-        uint32_t index2 = index + 1;
+        uint16_t index2 = index + 1;
         if (index2 >= vertexCount)
-            index2 = size_t(0);
+            index2 = uint16_t(0);
 
-        edgeNormal = math::Vector2::Normalized(math::Vector2(m_vertices[index2].y - m_vertices[index].y, -(m_vertices[index2].x - m_vertices[index].x)));
+        edgeNormal = math::Vector2::Normalized(math::Vector2(m_vertices[index2].y - m_vertices[index].y, m_vertices[index].x - m_vertices[index2].x));  // right normal (y, -x)
         real distance = math::Vector2::Dot(m_vertices[index], edgeNormal);
 
         if (distance < closestEdgeDistance)

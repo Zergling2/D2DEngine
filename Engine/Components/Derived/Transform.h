@@ -13,7 +13,7 @@ namespace D2DEngine
 		{
 			m_position = other.m_position;
 			m_scale = other.m_scale;
-			m_orientation = other.m_orientation;
+			m_rotation = other.m_rotation;
 		}
 	public:
 		// Returns the Object Axis in World Space (오브젝트의 월드 좌표 기준 XY좌표축 구하기)
@@ -23,7 +23,7 @@ namespace D2DEngine
 			: Component(pGameObj)
 			, m_position{ 0.0f, 0.0f }
 			, m_scale{ 1.0f, 1.0f }
-			, m_orientation(0.0f)
+			, m_rotation(0.0f)
 		{
 		}
 		inline Transform(class GameObject* pGameObj, const Transform& ref)
@@ -35,7 +35,7 @@ namespace D2DEngine
 			: Component(pGameObj)
 			, m_position{ posX, posY }
 			, m_scale{ scaleX, scaleY }
-			, m_orientation(rot)
+			, m_rotation(rot)
 		{
 		}
 		inline Transform& operator=(const Transform& ref)
@@ -51,12 +51,12 @@ namespace D2DEngine
 		{
 			m_position = pos;
 		}
-		inline void Translate(float x, float y)
+		inline void Move(float x, float y)
 		{
 			m_position.x += x;
 			m_position.y += y;
 		}
-		inline void Translate(const D2D_VECTOR_2F& displacement)
+		inline void Move(const D2D_VECTOR_2F& displacement)
 		{
 			m_position.x += displacement.x;
 			m_position.y += displacement.y;
@@ -65,13 +65,13 @@ namespace D2DEngine
 		// The rotation parameter is added to the current rotation value.
 		inline void Rotate(float angle)
 		{
-			m_orientation += angle;
+			m_rotation += angle;
 		}
 
 		// Overwrites the current rotation value.
 		inline void SetRotation(float newAngle)
 		{
-			m_orientation = newAngle;
+			m_rotation = newAngle;
 		}
 
 		// The scale parameter is multiplied by the current value.
@@ -105,12 +105,12 @@ namespace D2DEngine
 		{
 			return
 				D2D1::Matrix3x2F::Scale(m_scale.x, m_scale.y) *
-				D2D1::Matrix3x2F::Rotation(m_orientation) *
+				D2D1::Matrix3x2F::Rotation(m_rotation) *
 				D2D1::Matrix3x2F::Translation(m_position.x, m_position.y);
 		}
 	public:
 		D2D_VECTOR_2F m_position;
 		D2D_VECTOR_2F m_scale;
-		float m_orientation;		// degree
+		float m_rotation;		// degree
 	};
 }

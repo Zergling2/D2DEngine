@@ -70,6 +70,12 @@
     <Filter Include="App\Assets\Object\ControllableRectangle">
       <UniqueIdentifier>{61a132bb-3f0a-4e23-a785-4e1d9dfc50f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="App\Assets\Object\Pentagon">
+      <UniqueIdentifier>{f5ac2a75-bbef-4dd7-90a4-d2a8e953cc44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\Assets\Object\Triangle">
+      <UniqueIdentifier>{20f50b92-fda7-4b1b-834f-664eaee543a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -146,6 +152,12 @@
     </ClCompile>
     <ClCompile Include="App\Assets\Object\ControllableRectangle\ControllableRectangle.cpp">
       <Filter>App\Assets\Object\ControllableRectangle</Filter>
+    </ClCompile>
+    <ClCompile Include="App\Assets\Object\Pentagon\Pentagon.cpp">
+      <Filter>App\Assets\Object\Pentagon</Filter>
+    </ClCompile>
+    <ClCompile Include="App\Assets\Object\Triangle\Triangle.cpp">
+      <Filter>App\Assets\Object\Triangle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -232,6 +244,12 @@
     </ClInclude>
     <ClInclude Include="App\Assets\Object\ControllableRectangle\ControllableRectangle.h">
       <Filter>App\Assets\Object\ControllableRectangle</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Assets\Object\Pentagon\Pentagon.h">
+      <Filter>App\Assets\Object\Pentagon</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Assets\Object\Triangle\Triangle.h">
+      <Filter>App\Assets\Object\Triangle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

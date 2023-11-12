@@ -31,5 +31,5 @@ public:
 	virtual void OnDestroy() override;
 	// ========================================================================================
 private:
-	D2DEngine::Camera* pCamera;
+	D2DEngine::Camera* m_pCamera;
 };

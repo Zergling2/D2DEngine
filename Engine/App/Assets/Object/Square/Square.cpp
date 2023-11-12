@@ -29,11 +29,11 @@ Square::~Square()
 	}
 }
 
-bool Square::CreateCollider(const ip::math::Vector2 convexShapeVerticesCCW[], uint32_t vertexCount)
+bool Square::CreateCollider(ip::math::Size2 size)
 {
 	if (m_pCollider)
 		return false;
-	m_pCollider = D2DEngine::Engine::GetInstance().GetPhysicsProcessor().CreatePolygonCollider(convexShapeVerticesCCW, vertexCount);
+	m_pCollider = D2DEngine::Engine::GetInstance().GetPhysicsProcessor().CreateBoxCollider(size);
 	return true;
 }
 
@@ -90,9 +90,9 @@ void Square::OnRender()
 
 	// RigidBody Transform 사용
 	// GameObject::Transform 사용 X
-
-	D2D1::Matrix3x2F wMat = D2D1::Matrix3x2F::Rotation(m_pCollider->m_orientation) *
-		D2D1::Matrix3x2F::Translation(m_pCollider->m_position.x, m_pCollider->m_position.y);
+	
+	D2D1::Matrix3x2F wMat = D2D1::Matrix3x2F::Rotation(D2DEngine::Mathf::RadianToDegree(m_pCollider->GetRotation())) *
+		D2D1::Matrix3x2F::Translation(m_pCollider->GetPosition().x, m_pCollider->GetPosition().y);
 	D2DEngine::Engine::GetInstance().SetRenderingTransform(wMat);
 
 	D2DEngine::Engine::GetInstance().GetRenderTarget()->FillGeometry(m_pShape->m_pShape, pRedBrush, NULL);

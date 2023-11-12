@@ -40,7 +40,7 @@ namespace D2DEngine
 
 		// return old camera pointer
 		Camera* SetRenderingCamera(Camera* pCamera);		// 추후 뷰포트 설정 및 복수 카메라 지원
-		inline Camera* GetRenderingCamera() const { return m_pRenderingCamera; }
+		inline Camera& GetRenderingCamera() const { return *m_pRenderingCamera; }
 
 		inline void SetZOrder(LayerType type, int zOrder) { m_layers[static_cast<UINT>(type)].SetZOrder(zOrder); }
 		inline int GetZOrder(LayerType type) const { m_layers[static_cast<UINT>(type)].GetZOrder(); }

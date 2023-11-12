@@ -6,7 +6,7 @@ using namespace ip;
 
 const math::Vector2 CircleCollider::SupportPoint(const math::Vector2& direction) const
 {
-	return math::Vector2::Normalized(direction) * m_radius + m_position;
+	return m_position;
 }
 
 void CircleCollider::ComputeAABB()
