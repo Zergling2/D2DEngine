@@ -63,16 +63,10 @@ namespace D2DEngine
 		}
 
 		// The rotation parameter is added to the current rotation value.
-		inline void Rotate(float angle)
-		{
-			m_rotation += angle;
-		}
+		void Rotate(float degree);
 
 		// Overwrites the current rotation value.
-		inline void SetRotation(float newAngle)
-		{
-			m_rotation = newAngle;
-		}
+		void SetRotation(float degree);
 
 		// The scale parameter is multiplied by the current value.
 		inline void Scale(float x, float y)

@@ -133,31 +133,50 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Common\LayerCollisionMatrix.h" />
+    <ClInclude Include="Common\IPMacro.h" />
     <ClInclude Include="Common\Math2D.h" />
-    <ClInclude Include="Common\Parameters.h" />
+    <ClInclude Include="Common\IPParameter.h" />
+    <ClInclude Include="Components\CapsuleCollider.h" />
+    <ClInclude Include="Components\Collision.h" />
+    <ClInclude Include="Components\EdgeCollider.h" />
     <ClInclude Include="Components\CircleCollider.h" />
     <ClInclude Include="Components\Collider.h" />
-    <ClInclude Include="Components\Line.h" />
+    <ClInclude Include="Components\CollisionCallback.h" />
+    <ClInclude Include="Components\IPDebug.h" />
+    <ClInclude Include="Components\Job.h" />
     <ClInclude Include="Components\Manifold.h" />
     <ClInclude Include="Components\HullCollider.h" />
+    <ClInclude Include="Components\PhysicsObject.h" />
     <ClInclude Include="Components\Query.h" />
+    <ClInclude Include="Components\RaycastHit2D.h" />
     <ClInclude Include="Components\RigidBody.h" />
     <ClInclude Include="Components\Simplex.h" />
     <ClInclude Include="Core\Acc\AABB.h" />
+    <ClInclude Include="Components\ActiveSet.h" />
     <ClInclude Include="Core\Acc\SIMD.h" />
-    <ClInclude Include="Core\Processor\Processor.h" />
-    <ClInclude Include="Type.h" />
+    <ClInclude Include="Components\PhysicsWorld.h" />
+    <ClInclude Include="Common\Type.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Common\LayerCollisionMatrix.cpp" />
     <ClCompile Include="Common\Math2D.cpp" />
+    <ClCompile Include="Components\CapsuleCollider.cpp" />
+    <ClCompile Include="Components\Collision.cpp" />
+    <ClCompile Include="Components\EdgeCollider.cpp" />
     <ClCompile Include="Components\CircleCollider.cpp" />
     <ClCompile Include="Components\Collider.cpp" />
+    <ClCompile Include="Components\CollisionCallback.cpp" />
     <ClCompile Include="Components\HullCollider.cpp" />
+    <ClCompile Include="Components\IPDebug.cpp" />
+    <ClCompile Include="Components\Job.cpp" />
+    <ClCompile Include="Components\PhysicsObject.cpp" />
+    <ClCompile Include="Components\RaycastHit2D.cpp" />
     <ClCompile Include="Components\RigidBody.cpp" />
     <ClCompile Include="Components\Simplex.cpp" />
     <ClCompile Include="Core\Acc\AABB.cpp" />
-    <ClCompile Include="Core\Acc\SIMD.cpp" />
-    <ClCompile Include="Core\Processor\Processor.cpp" />
+    <ClCompile Include="Components\ActiveSet.cpp" />
+    <ClCompile Include="Components\PhysicsWorld.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="InstantPhysics.h" />

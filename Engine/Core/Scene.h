@@ -36,7 +36,7 @@ namespace D2DEngine
 
 		// ========================================================================================
 
-		void AddObject(GameObject* pObj, LayerType layer);
+		void AddObject(GameObject* pObj, LayerType layer = LayerType::Default);
 
 		// return old camera pointer
 		Camera* SetRenderingCamera(Camera* pCamera);		// 추후 뷰포트 설정 및 복수 카메라 지원

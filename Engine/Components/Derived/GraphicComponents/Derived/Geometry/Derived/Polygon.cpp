@@ -1,7 +1,7 @@
 #include "Polygon.h"
 #include "Core\Engine.h"
 
-using namespace D2DEngine;
+using namespace D2DEngine::Graphic;
 
 Polygon::Polygon(GameObject* pGameObj, const D2D1_POINT_2F vArr[], UINT count)
 	: Geometry(pGameObj)

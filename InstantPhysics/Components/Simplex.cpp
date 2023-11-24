@@ -1,7 +1,7 @@
 #include "Simplex.h"
-#include "Components\Collider.h"
+#include "Components\PhysicsObject.h"
 #include "Components\Manifold.h"
-#include "Common\Parameters.h"
+#include "Common\IPParameter.h"
 
 using namespace ip;
 
@@ -18,7 +18,7 @@ Simplex::State Simplex::EvolveSimplex()
         // Simplex 최초 단계
         // 아무 검색 방향이나 선정한다.
         // But 수학적으로 AB 벡터를 잡는 것이 유리하다고 하므로... 다음과 같이 설정.
-        m_direction = m_pColliderB->m_position - m_pColliderA->m_position;
+        m_direction = m_pColliderB->m_pPhysObj->m_position - m_pColliderA->m_pPhysObj->m_position;
         break;
     case size_t(1):
         // Simplex 두 번째 단계
@@ -32,9 +32,9 @@ Simplex::State Simplex::EvolveSimplex()
         // Simplex의 정점이 2개인 경우 -> Simplex를 삼각형으로 확장하기 위해 다음 검색 방향을 설정.
         // 다음 검색 방향은 원점을 향하는 방향이어야 유리하다.
         // 벡터 cb는 Simplex에서 가장 처음 만들어진 선분
-        math::Vector2 cb = m_vertices[1] - m_vertices[0];
+        const math::Vector2 cb = m_vertices[1] - m_vertices[0];
         // co 벡터는 정점 C에서 원점을 향하는 벡터.
-        math::Vector2 co = -m_vertices[0];
+        const math::Vector2 co = -m_vertices[0];
         // cb x co x cb 삼중 외적을 통해 cb 벡터와 수직인 두 벡터 중 원점을 향하는 벡터를 검색 방향으로 설정.
         m_direction = math::Vector2::Cross(math::Vector2::Cross(cb, co), cb);
     }
@@ -44,12 +44,12 @@ Simplex::State Simplex::EvolveSimplex()
         // 정점이 3개이므로 현재 Simplex가 원점을 포함하고 있는지 계산한다.
         // [0] [1] [2]
         //  C   B   A
-        math::Vector2 ao = -m_vertices[2];                  // A to the origin
-        math::Vector2 ab = m_vertices[1] - m_vertices[2];   // A to B
-        math::Vector2 ac = m_vertices[0] - m_vertices[2];   // A to C
+        const math::Vector2 ao = -m_vertices[2];                  // A to the origin
+        const math::Vector2 ab = m_vertices[1] - m_vertices[2];   // A to B
+        const math::Vector2 ac = m_vertices[0] - m_vertices[2];   // A to C
 
-        math::Vector2 abPerp = math::Vector2::Cross(math::Vector2::Cross(ac, ab), ab);  // 반드시 외적으로 구해야 함(단순히 R, L 노말로 안됨)
-        math::Vector2 acPerp = math::Vector2::Cross(math::Vector2::Cross(ab, ac), ac);  // 반드시 외적으로 구해야 함(단순히 R, L 노말로 안됨)
+        const math::Vector2 abPerp = math::Vector2::Cross(math::Vector2::Cross(ac, ab), ab);  // 반드시 외적으로 구해야 함(단순히 R, L 노말로 안됨)
+        const math::Vector2 acPerp = math::Vector2::Cross(math::Vector2::Cross(ab, ac), ac);  // 반드시 외적으로 구해야 함(단순히 R, L 노말로 안됨)
 
         if (math::Vector2::Dot(abPerp, ao) > real(0.0))
         {
@@ -72,9 +72,6 @@ Simplex::State Simplex::EvolveSimplex()
         }
     }
         break;
-    default:
-        *reinterpret_cast<int*>(0x00000000) = 0;
-        break;
     }
 
     math::Vector2 newVertex = m_pColliderA->SupportPoint(m_direction) - m_pColliderB->SupportPoint(-m_direction);
@@ -85,45 +82,6 @@ Simplex::State Simplex::EvolveSimplex()
     else
         return Simplex::State::NotIntersecting;
 }
-
-/*
-void Simplex::ComputeManifold(Manifold& manifold)
-{
-    math::Vector2 closestEdgeNormal;			// Normalized vector
-    real closestEdgeDistance;
-    uint16_t edgeIndex;
-
-    ConvertVerticesToCCW();
-
-    manifold.pReference = const_cast<Collider*>(m_pColliderA);
-    manifold.pIncident = const_cast<Collider*>(m_pColliderB);
-
-    for (unsigned int count = 0; count < parameter::EPA_ITERATION_MAX; count++)
-    {
-        FindClosestEdge(&closestEdgeNormal, &closestEdgeDistance, &edgeIndex);      // edgeIndex i <- vertex[i + 1] - vertex[i]
-        math::Vector2 supportPoint = m_pColliderA->SupportPoint(closestEdgeNormal) - m_pColliderB->SupportPoint(-closestEdgeNormal);    // get new support point
-        real distance = math::Vector2::Dot(supportPoint, closestEdgeNormal);        // new edge distance
-
-        manifold.collisionNormal = closestEdgeNormal;
-        manifold.penetrationDepth = closestEdgeDistance;
-        // manifold.contact[0] = ;
-        // manifold.contact[1] = ;
-        // manifold.contactCount = ;
-
-        if (std::abs(distance - closestEdgeDistance) <= parameter::EPA_EPSILON)
-        {
-            return;
-        }
-        else
-        {
-            size_t offset = static_cast<size_t>(edgeIndex) + 1;
-            if (offset >= m_vertices.size())
-                offset = 0;
-            m_vertices.insert(m_vertices.begin() + offset, supportPoint);
-        }
-    }
-}
-*/
 
 void Simplex::ConvertVerticesToCCW()
 {
@@ -175,3 +133,42 @@ void Simplex::FindClosestEdge(math::Vector2* pClosestEdgeNormal, real* pClosestE
     *pClosestEdgeDistance = closestEdgeDistance;
     *pClosestEdgeIndex = closestEdgeIndex;
 }
+
+/*
+void Simplex::ComputeManifold(Manifold& manifold)
+{
+    math::Vector2 closestEdgeNormal;			// Normalized vector
+    real closestEdgeDistance;
+    uint16_t edgeIndex;
+
+    ConvertVerticesToCCW();
+
+    manifold.pReference = const_cast<Collider*>(m_pColliderA);
+    manifold.pIncident = const_cast<Collider*>(m_pColliderB);
+
+    for (unsigned int count = 0; count < parameter::EPA_ITERATION_MAX; count++)
+    {
+        FindClosestEdge(&closestEdgeNormal, &closestEdgeDistance, &edgeIndex);      // edgeIndex i <- vertex[i + 1] - vertex[i]
+        math::Vector2 supportPoint = m_pColliderA->SupportPoint(closestEdgeNormal) - m_pColliderB->SupportPoint(-closestEdgeNormal);    // get new support point
+        real distance = math::Vector2::Dot(supportPoint, closestEdgeNormal);        // new edge distance
+
+        manifold.collisionNormal = closestEdgeNormal;
+        manifold.penetrationDepth = closestEdgeDistance;
+        // manifold.contact[0] = ;
+        // manifold.contact[1] = ;
+        // manifold.contactCount = ;
+
+        if (std::abs(distance - closestEdgeDistance) <= parameter::EPA_EPSILON)
+        {
+            return;
+        }
+        else
+        {
+            size_t offset = static_cast<size_t>(edgeIndex) + 1;
+            if (offset >= m_vertices.size())
+                offset = 0;
+            m_vertices.insert(m_vertices.begin() + offset, supportPoint);
+        }
+    }
+}
+*/

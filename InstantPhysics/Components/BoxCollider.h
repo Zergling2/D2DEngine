@@ -27,7 +27,6 @@ namespace ip
 			}
 		}
 		// ==========================================================================
-		virtual void ComputeAABB() override;
 		inline real ExtentX() const { return m_pLocalVertices[2].x; }
 		inline real ExtentY() const { return m_pLocalVertices[2].y; }
 		const math::Vector2 GetFaceNormal(uint16_t faceIndex) const;

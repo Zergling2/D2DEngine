@@ -19,12 +19,6 @@
     <Filter Include="Object">
       <UniqueIdentifier>{a16d630d-7fd0-4c41-83bb-2681acdab1ce}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Data Structure">
-      <UniqueIdentifier>{364b848d-f239-4862-b504-8803fcc6540c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data Structure\Structure">
-      <UniqueIdentifier>{8ceadef0-652a-4dd1-aa33-a0897682822a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Mathf">
       <UniqueIdentifier>{65aef136-18b6-40e2-8674-6d41171176a6}</UniqueIdentifier>
     </Filter>
@@ -61,21 +55,6 @@
     <Filter Include="App\Assets\Object">
       <UniqueIdentifier>{e3f60232-f247-48de-abe4-d658a3a430f8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="App\Assets\Object\Square">
-      <UniqueIdentifier>{aa5e2657-01b5-4cfc-bf2f-76d2a28648cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="App\Assets\Object\Circle">
-      <UniqueIdentifier>{29a31d0d-819e-4926-b255-e847974e0dc5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="App\Assets\Object\ControllableRectangle">
-      <UniqueIdentifier>{61a132bb-3f0a-4e23-a785-4e1d9dfc50f5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="App\Assets\Object\Pentagon">
-      <UniqueIdentifier>{f5ac2a75-bbef-4dd7-90a4-d2a8e953cc44}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="App\Assets\Object\Triangle">
-      <UniqueIdentifier>{20f50b92-fda7-4b1b-834f-664eaee543a4}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -98,9 +77,6 @@
     </ClCompile>
     <ClCompile Include="Object\Derived\GameObject\GameObject.cpp">
       <Filter>Object\Derived\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\Derived\Transform.cpp">
-      <Filter>Components\Derived</Filter>
     </ClCompile>
     <ClCompile Include="Components\Component.cpp">
       <Filter>Components</Filter>
@@ -135,29 +111,47 @@
     <ClCompile Include="Core\Camera.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="App\Assets\Object\Square\Square.cpp">
-      <Filter>App\Assets\Object\Square</Filter>
-    </ClCompile>
     <ClCompile Include="Core\Debug.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="App\Scene\TestScene01.cpp">
       <Filter>App\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="App\Assets\Object\Circle\Circle.cpp">
-      <Filter>App\Assets\Object\Circle</Filter>
-    </ClCompile>
     <ClCompile Include="App\Scene\TestScene02.cpp">
       <Filter>App\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="App\Assets\Object\ControllableRectangle\ControllableRectangle.cpp">
-      <Filter>App\Assets\Object\ControllableRectangle</Filter>
+    <ClCompile Include="App\Assets\Object\AlYac.cpp">
+      <Filter>App\Assets\Object</Filter>
     </ClCompile>
-    <ClCompile Include="App\Assets\Object\Pentagon\Pentagon.cpp">
-      <Filter>App\Assets\Object\Pentagon</Filter>
+    <ClCompile Include="App\Assets\Object\Circle.cpp">
+      <Filter>App\Assets\Object</Filter>
     </ClCompile>
-    <ClCompile Include="App\Assets\Object\Triangle\Triangle.cpp">
-      <Filter>App\Assets\Object\Triangle</Filter>
+    <ClCompile Include="App\Assets\Object\Car.cpp">
+      <Filter>App\Assets\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="App\Assets\Object\Stone.cpp">
+      <Filter>App\Assets\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="App\Assets\Object\Wall.cpp">
+      <Filter>App\Assets\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="App\Assets\Object\Triangle.cpp">
+      <Filter>App\Assets\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Derived\GraphicComponents\Derived\Geometry\Derived\Capsule.cpp">
+      <Filter>Components\Derived\GraphicComponents\Derived\Geometry\Derived</Filter>
+    </ClCompile>
+    <ClCompile Include="App\Assets\Object\Oscillation.cpp">
+      <Filter>App\Assets\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="App\Assets\Object\Ground.cpp">
+      <Filter>App\Assets\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="App\Assets\Object\Rope.cpp">
+      <Filter>App\Assets\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="App\Assets\Object\RopeSegment.cpp">
+      <Filter>App\Assets\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -184,9 +178,6 @@
     </ClInclude>
     <ClInclude Include="Object\Derived\GameObject\GameObject.h">
       <Filter>Object\Derived\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\Derived\Transform.h">
-      <Filter>Components\Derived</Filter>
     </ClInclude>
     <ClInclude Include="Components\Component.h">
       <Filter>Components</Filter>
@@ -224,9 +215,6 @@
     <ClInclude Include="Core\Camera.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="App\Assets\Object\Square\Square.h">
-      <Filter>App\Assets\Object\Square</Filter>
-    </ClInclude>
     <ClInclude Include="Core\Debug.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -236,20 +224,41 @@
     <ClInclude Include="App\Scene\SceneId.h">
       <Filter>App\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="App\Assets\Object\Circle\Circle.h">
-      <Filter>App\Assets\Object\Circle</Filter>
-    </ClInclude>
     <ClInclude Include="App\Scene\TestScene02.h">
       <Filter>App\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="App\Assets\Object\ControllableRectangle\ControllableRectangle.h">
-      <Filter>App\Assets\Object\ControllableRectangle</Filter>
+    <ClInclude Include="App\Assets\Object\AlYac.h">
+      <Filter>App\Assets\Object</Filter>
     </ClInclude>
-    <ClInclude Include="App\Assets\Object\Pentagon\Pentagon.h">
-      <Filter>App\Assets\Object\Pentagon</Filter>
+    <ClInclude Include="App\Assets\Object\Circle.h">
+      <Filter>App\Assets\Object</Filter>
     </ClInclude>
-    <ClInclude Include="App\Assets\Object\Triangle\Triangle.h">
-      <Filter>App\Assets\Object\Triangle</Filter>
+    <ClInclude Include="App\Assets\Object\Car.h">
+      <Filter>App\Assets\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Assets\Object\Wall.h">
+      <Filter>App\Assets\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Assets\Object\Triangle.h">
+      <Filter>App\Assets\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Assets\Object\Stone.h">
+      <Filter>App\Assets\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Derived\GraphicComponents\Derived\Geometry\Derived\Capsule.h">
+      <Filter>Components\Derived\GraphicComponents\Derived\Geometry\Derived</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Assets\Object\Oscillation.h">
+      <Filter>App\Assets\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Assets\Object\Ground.h">
+      <Filter>App\Assets\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Assets\Object\Rope.h">
+      <Filter>App\Assets\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Assets\Object\RopeSegment.h">
+      <Filter>App\Assets\Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

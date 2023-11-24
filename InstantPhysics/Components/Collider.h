@@ -1,85 +1,62 @@
 #pragma once
 
 #include "Common\Math2D.h"
+#include "Common\LayerCollisionMatrix.h"
 #include "Core\Acc\AABB.h"
 
 namespace ip
 {
-	class ColliderType
-	{
-	public:
-		static constexpr uint16_t CIRCLE = 0;
-		static constexpr uint16_t CAPSULE = 1;
-		static constexpr uint16_t HULL = 2;
-		static constexpr uint16_t LINE = 3;
-		static constexpr uint16_t COLLIDER_TYPE_COUNT = 4;
-	};
+	typedef uint8_t ColliderType;
+	static constexpr ColliderType CIRCLE = 0;
+	static constexpr ColliderType CAPSULE = 1;
+	static constexpr ColliderType HULL = 2;
+	static constexpr ColliderType CHAIN = 3;
+	static constexpr ColliderType COLLIDER_TYPE_COUNT = 4;
 
 	class Collider abstract
 	{
-		friend class Processor;
+		friend class PhysicsWorld;
+		friend class PhysicsObject;
+		friend class MTUpdatePhysicsObject;
 		friend class Simplex;
+		friend class AABBArray;
+		friend class ActiveSet;
 	public:
-		Collider(uint16_t type)
-			: m_type(type)
-			, m_rotateCounter(0)
-			, m_position(real(0.0), real(0.0))
-			, m_radian(real(0.0))
-			, m_lastWTPosition(real(0.0), real(0.0))
-			, m_lastWTRadian(real(0.0))
-			, m_pRigidBody(nullptr)
+		__forceinline class PhysicsObject& GetPhysicsObject() const { return *m_pPhysObj; }
+		__forceinline void Enable() { m_isDead = false; }
+		__forceinline void Disable() { m_isDead = true; }
+		__forceinline void TriggerOn() { m_isTrigger = true; }
+		__forceinline void TriggerOff() { m_isTrigger = false; }
+		__forceinline bool isTrigger() const { return m_isTrigger; }
+		__forceinline CollisionLayer GetLayer() const { return m_layer; }
+	protected:
+		Collider(class PhysicsObject* pPhysObj, ColliderType type, CollisionLayer layer)
+			: m_pPhysObj(pPhysObj)
+			, m_type(type)
+			, m_layer(layer)
+			, m_isDead(false)
+			, m_isTrigger(false)
+			, m_reserved(0)
+			, m_activeSetIndex(-1)
 		{
-		}
-		Collider(uint16_t type, const math::Vector2& position, real rotation)
-			: m_type(type)
-			, m_rotateCounter(0)
-			, m_position(position)
-			, m_radian(rotation)
-			, m_lastWTPosition(real(0.0), real(0.0))
-			, m_lastWTRadian(real(0.0))
-			, m_pRigidBody(nullptr)
-		{
+			m_AABB.pMinXNode = nullptr;
+			m_AABB.pMaxXNode = nullptr;
 		}
 		virtual ~Collider();
-		bool CreateRigidBody(real mass, real inertia, real restitution, real sf, real df, bool isStatic);
-
-		__forceinline class RigidBody& GetRigidBody() const { return *m_pRigidBody; }
-
-		__forceinline const math::Vector2& GetPosition() const { return m_position; }
-
-		__forceinline void SetPosition(const math::Vector2& pos) { m_position = pos; }
-
-		__forceinline void SetPosition(real x, real y) { m_position.x = x; m_position.y = y; }
-
-		__forceinline void SetPositionX(real x) { m_position.x = x; }
-
-		__forceinline void SetPositionY(real y) { m_position.y = y; }
-
-		__forceinline void Move(real dx, real dy) { m_position.x += dx; m_position.y += dy; }
-
-		__forceinline void MoveX(real dx) { m_position.x += dx; }
-
-		__forceinline void MoveY(real dy) { m_position.y += dy; }
-
-		// 라디안 단위로 회전 값 전달
-		__forceinline real GetRotation() const { return m_radian; }
-
-		// 전달된 radian 값 만큼 회전된 상태로 설정
-		void SetRotation(real radian);
-
-		// 전달된 radian 값 만큼 회전
-		void Rotate(real radian);
+		bool Initialize();		// Allocate AABB Node
+		virtual void UpdateCollider() = 0;
 	private:
+		bool CreateAABBNode();
+		void DeleteAABBNode();
 		virtual const math::Vector2 SupportPoint(const math::Vector2& direction) const = 0;
-		virtual void ComputeAABB() = 0;
-	protected:
-		uint16_t m_type;
-		uint16_t m_rotateCounter;
+	public:
+		class PhysicsObject* m_pPhysObj;
+		CollisionLayer m_layer;
+		ColliderType m_type;
+		bool m_isDead;
+		bool m_isTrigger;
+		uint8_t m_reserved;
+		int m_activeSetIndex;
 		AABB m_AABB;
-		math::Vector2 m_position;
-		real m_radian;						// orientation
-		math::Vector2 m_lastWTPosition;		// for simd world transform		World 변환 함수에서만 갱신
-		real m_lastWTRadian;				// for simd world transform		World 변환 함수에서만 갱신
-		class RigidBody* m_pRigidBody;
 	};
 }

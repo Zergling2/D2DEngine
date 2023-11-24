@@ -1,7 +1,7 @@
 #include "Rectangle.h"
 #include "Core\Engine.h"
 
-using namespace D2DEngine;
+using namespace D2DEngine::Graphic;
 
 Rectangle::Rectangle(GameObject* pGameObj, const D2D_RECT_F& shape)
 	: Geometry(pGameObj)

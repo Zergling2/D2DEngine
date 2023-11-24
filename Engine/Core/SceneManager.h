@@ -26,11 +26,11 @@ namespace D2DEngine
 		inline void SetFirstScene(int sceneId) { m_nextSceneId = sceneId; m_sceneChangeFlag = true; }
 		inline void LoadScene(int sceneId) { m_nextSceneId = sceneId; m_sceneChangeFlag = true; }
 		void RegisterSceneTable(SceneTable table[], unsigned int count);
+		inline class Scene& GetCurrentScene() const { return *m_pCurrentScene; }
 	private:
 		SceneManager();
 		~SceneManager();
 		bool CreateNextScene();
-		inline class Scene* GetCurrentScene() const { return m_pCurrentScene; }
 	private:
 		static SceneManager s_instance;
 		std::vector<SceneTable> m_sceneTable;

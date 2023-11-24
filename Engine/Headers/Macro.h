@@ -16,7 +16,7 @@ __forceinline void SafeRelease(Interface*& pInterfaceToRelease)
     }
 }
 
-#define SafeDeleteScalar(p)\
+#define D2DESafeDelete(p)\
 {\
 	if (p != nullptr)\
 	{\
@@ -25,7 +25,7 @@ __forceinline void SafeRelease(Interface*& pInterfaceToRelease)
 	}\
 }
 
-#define SafeDeleteVector(p)\
+#define D2DESafeDeleteArray(p)\
 {\
 	if (p != nullptr)\
 	{\

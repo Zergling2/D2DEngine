@@ -12,7 +12,7 @@
 
 // 2. Update loop
 
-// 2 - 1. Fixed Update < Physics API 호출부랑 관련 >
+// 2 - 1. Fixed Update < PhysWorld API 호출부랑 관련 >
 // 
 
 
@@ -36,24 +36,24 @@ namespace D2DEngine
 		Engine();
 		~Engine();
 	public:
-		static inline Engine& GetInstance() { return Engine::s_instance; }
-		inline BOOL GetClientRect(RECT* pRect) const { return ::GetClientRect(m_hwnd, pRect); }
+		static __forceinline Engine& GetInstance() { return Engine::s_instance; }
+		__forceinline BOOL GetClientRect(RECT* pRect) const { return ::GetClientRect(m_hwnd, pRect); }
 		bool Initialize();
 		int Run();
 		void Stop();
-		inline ID2D1Factory* GetFactory() const { return m_pDirect2dFactory; }
+		__forceinline ID2D1Factory* GetFactory() const { return m_pDirect2dFactory; }
 
-		inline void CacheVPMatrix(D2D1::Matrix3x2F& vpMatrix) { m_vpMatrixCache = vpMatrix; }
-		inline void SetRenderingTransform(D2D1::Matrix3x2F& wMat) { m_pRenderTarget->SetTransform(wMat * m_vpMatrixCache); }
-		inline ID2D1RenderTarget* GetRenderTarget() const { return m_pRenderTarget; }
-		inline ip::Processor& GetPhysicsProcessor() { return m_physicsProcessor; }
+		__forceinline void CacheVPMatrix(const D2D1::Matrix3x2F& vpMatrix) { m_vpMatrixCache = vpMatrix; }
+		__forceinline void SetRenderingTransform(const D2D1::Matrix3x2F& wMat) { m_pRenderTarget->SetTransform(wMat * m_vpMatrixCache); }
+		__forceinline ID2D1RenderTarget* GetRenderTarget() const { return m_pRenderTarget; }
+		__forceinline ip::PhysicsWorld& PhysWorld() { return m_physWorld; }
 	private:
 		// Engine loop
 		void Release();
 
 		void Loop();
 
-		HRESULT RenderScene(Scene* pScene);
+		HRESULT RenderScene(Scene& scene);
 
 		// Initialize device-independent resources.
 		HRESULT CreateDeviceIndependentResources();
@@ -101,7 +101,7 @@ namespace D2DEngine
 		UINT m_width;		// Window width
 		UINT m_height;		// Window height
 		D2D1::Matrix3x2F m_vpMatrixCache;
-		ip::Processor m_physicsProcessor;
+		ip::PhysicsWorld m_physWorld;
 	};
 
 

@@ -1,7 +1,7 @@
 #include "RoundedRectangle.h"
 #include "Core\Engine.h"
 
-using namespace D2DEngine;
+using namespace D2DEngine::Graphic;
 
 RoundedRectangle::RoundedRectangle(GameObject* pGameObj, const D2D1_ROUNDED_RECT& shape)
 	: Geometry(pGameObj)

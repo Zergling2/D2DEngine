@@ -210,13 +210,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="App\Assets\Object\Circle\Circle.cpp" />
-    <ClCompile Include="App\Assets\Object\ControllableRectangle\ControllableRectangle.cpp" />
-    <ClCompile Include="App\Assets\Object\Pentagon\Pentagon.cpp" />
-    <ClCompile Include="App\Assets\Object\Square\Square.cpp" />
-    <ClCompile Include="App\Assets\Object\Triangle\Triangle.cpp" />
+    <ClCompile Include="App\Assets\Object\AlYac.cpp" />
+    <ClCompile Include="App\Assets\Object\Circle.cpp" />
+    <ClCompile Include="App\Assets\Object\Car.cpp" />
+    <ClCompile Include="App\Assets\Object\Ground.cpp" />
+    <ClCompile Include="App\Assets\Object\Oscillation.cpp" />
+    <ClCompile Include="App\Assets\Object\Rope.cpp" />
+    <ClCompile Include="App\Assets\Object\RopeSegment.cpp" />
+    <ClCompile Include="App\Assets\Object\Stone.cpp" />
+    <ClCompile Include="App\Assets\Object\Wall.cpp" />
+    <ClCompile Include="App\Assets\Object\Triangle.cpp" />
     <ClCompile Include="App\Scene\TestScene01.cpp" />
     <ClCompile Include="App\Scene\TestScene02.cpp" />
+    <ClCompile Include="Components\Derived\GraphicComponents\Derived\Geometry\Derived\Capsule.cpp" />
     <ClCompile Include="Components\Derived\GraphicComponents\Derived\Geometry\Derived\Ellipse.cpp" />
     <ClCompile Include="Components\Derived\GraphicComponents\Derived\Geometry\Derived\Polygon.cpp" />
     <ClCompile Include="Components\Derived\GraphicComponents\Derived\Geometry\Derived\RoundedRectangle.cpp" />
@@ -234,18 +240,23 @@
     <ClCompile Include="Mathf\Mathf.cpp" />
     <ClCompile Include="Core\Camera.cpp" />
     <ClCompile Include="Components\Component.cpp" />
-    <ClCompile Include="Components\Derived\Transform.cpp" />
     <ClCompile Include="Object\Derived\GameObject\GameObject.cpp" />
     <ClCompile Include="Object\Object.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="App\Assets\Object\Circle\Circle.h" />
-    <ClInclude Include="App\Assets\Object\ControllableRectangle\ControllableRectangle.h" />
-    <ClInclude Include="App\Assets\Object\Pentagon\Pentagon.h" />
-    <ClInclude Include="App\Assets\Object\Square\Square.h" />
-    <ClInclude Include="App\Assets\Object\Triangle\Triangle.h" />
+    <ClInclude Include="App\Assets\Object\AlYac.h" />
+    <ClInclude Include="App\Assets\Object\Circle.h" />
+    <ClInclude Include="App\Assets\Object\Car.h" />
+    <ClInclude Include="App\Assets\Object\Ground.h" />
+    <ClInclude Include="App\Assets\Object\Oscillation.h" />
+    <ClInclude Include="App\Assets\Object\Rope.h" />
+    <ClInclude Include="App\Assets\Object\RopeSegment.h" />
+    <ClInclude Include="App\Assets\Object\Stone.h" />
+    <ClInclude Include="App\Assets\Object\Wall.h" />
+    <ClInclude Include="App\Assets\Object\Triangle.h" />
     <ClInclude Include="App\Scene\TestScene01.h" />
     <ClInclude Include="App\Scene\TestScene02.h" />
+    <ClInclude Include="Components\Derived\GraphicComponents\Derived\Geometry\Derived\Capsule.h" />
     <ClInclude Include="Components\Derived\GraphicComponents\Derived\Geometry\Derived\Ellipse.h" />
     <ClInclude Include="Components\Derived\GraphicComponents\Derived\Geometry\Derived\Polygon.h" />
     <ClInclude Include="Components\Derived\GraphicComponents\Derived\Geometry\Derived\RoundedRectangle.h" />
@@ -265,7 +276,6 @@
     <ClInclude Include="Mathf\Mathf.h" />
     <ClInclude Include="Core\Camera.h" />
     <ClInclude Include="Components\Component.h" />
-    <ClInclude Include="Components\Derived\Transform.h" />
     <ClInclude Include="Object\Derived\GameObject\GameObject.h" />
     <ClInclude Include="Object\Object.h" />
     <ClInclude Include="App\Scene\SceneId.h" />

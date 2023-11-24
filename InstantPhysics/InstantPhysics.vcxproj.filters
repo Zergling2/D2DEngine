@@ -13,8 +13,8 @@
     <Filter Include="Common">
       <UniqueIdentifier>{77d968c7-9047-478e-9f8d-06adaacfb714}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Processor">
-      <UniqueIdentifier>{ebfd7196-4fe7-4c86-bdf9-41dd657444e0}</UniqueIdentifier>
+    <Filter Include="Core\DS">
+      <UniqueIdentifier>{8af227ee-7e7d-4b7d-9174-4d73d839bb78}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -27,9 +27,6 @@
     <ClCompile Include="Common\Math2D.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Processor\Processor.cpp">
-      <Filter>Core\Processor</Filter>
-    </ClCompile>
     <ClCompile Include="Components\CircleCollider.cpp">
       <Filter>Components</Filter>
     </ClCompile>
@@ -39,10 +36,40 @@
     <ClCompile Include="Components\Simplex.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Acc\SIMD.cpp">
-      <Filter>Core\Acc</Filter>
-    </ClCompile>
     <ClCompile Include="Components\Collider.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\CapsuleCollider.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\PhysicsWorld.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\CollisionCallback.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\ActiveSet.cpp">
+      <Filter>Core\DS</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Job.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\IPDebug.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\RaycastHit2D.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\EdgeCollider.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\LayerCollisionMatrix.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\PhysicsObject.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Collision.cpp">
       <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,23 +83,16 @@
     <ClInclude Include="Common\Math2D.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Processor\Processor.h">
-      <Filter>Core\Processor</Filter>
-    </ClInclude>
     <ClInclude Include="Components\CircleCollider.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Components\Collider.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="Type.h" />
     <ClInclude Include="Components\Manifold.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Components\Query.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\Line.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Components\HullCollider.h">
@@ -81,9 +101,50 @@
     <ClInclude Include="Components\Simplex.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="Common\Parameters.h" />
+    <ClInclude Include="Components\CapsuleCollider.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\IPMacro.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Type.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\PhysicsWorld.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\CollisionCallback.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\IPParameter.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\ActiveSet.h">
+      <Filter>Core\DS</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Job.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\IPDebug.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\RaycastHit2D.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\EdgeCollider.h">
+      <Filter>Components</Filter>
+    </ClInclude>
     <ClInclude Include="Core\Acc\SIMD.h">
       <Filter>Core\Acc</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\LayerCollisionMatrix.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\PhysicsObject.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Collision.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

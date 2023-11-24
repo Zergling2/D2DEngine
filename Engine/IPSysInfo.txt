@@ -1,0 +1,3 @@
+Number of (Logical)Processors: 20
+VM Page Size: 4KB
+VM Allocation Granularity: 64KB

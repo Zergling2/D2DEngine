@@ -1,7 +1,8 @@
 #pragma once
-#include "Type.h"
+#include "Common\Type.h"
 #include <cmath>
 #include <algorithm>
+#include <immintrin.h>
 
 namespace ip
 {
@@ -50,6 +51,10 @@ namespace ip
 		{
 		public:
 			static const Vector2 zero;
+			static const Vector2 up;
+			static const Vector2 down;
+			static const Vector2 right;
+			static const Vector2 left;
 		public:
 			static inline const Vector2 Normalized(const Vector2& v)
 			{
@@ -72,11 +77,11 @@ namespace ip
 			{
 				return Vector2(v.y * -s, v.x * s);
 			}
-			static inline const Vector2 Rotated(const Vector2& v, real degree)
+			static inline const Vector2 Rotated(const Vector2& v, real angle)		// Radian
 			{
-				real cosine = std::cos(degree);
-				real sine = std::sin(degree);
-				return Vector2(v.x * cosine + v.y * sine, v.x * -sine + v.y * cosine);
+				real cosine = std::cos(angle);
+				real sine = std::sin(angle);
+				return Vector2(v.x * cosine - v.y * sine, v.x * sine + v.y * cosine);
 			}
 		public:
 			inline Vector2()
@@ -118,7 +123,7 @@ namespace ip
 			{
 				return Vector2(-x, -y);
 			}
-			inline Vector2& Normalization()
+			inline Vector2& Normalize()
 			{
 				real length = std::sqrt(x * x + y * y);
 				x /= length;
@@ -133,10 +138,10 @@ namespace ip
 			{
 				return x * x + y * y;
 			}
-			inline Vector2& Rotate(real degree)
+			inline Vector2& Rotate(real radian)
 			{
-				real cosine = std::cos(degree);
-				real sine = std::sin(degree);
+				real cosine = std::cos(radian);
+				real sine = std::sin(radian);
 				Vector2 old = *this;
 				this->x = old.x * cosine + old.y * sine;
 				this->y = old.x * -sine + old.y * cosine;

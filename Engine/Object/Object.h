@@ -12,7 +12,7 @@ namespace D2DEngine
 	};
 
 	// Base class for all objects D2DEngine can reference.
-	class Object abstract
+	class Object : public ip::PhysicsObject
 	{
 		friend class Scene;
 	protected:

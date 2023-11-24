@@ -1,9 +1,11 @@
 #pragma once
 #include "Core\Scene.h"
 
-D2DEngine::Scene* CreateTestScene01();
+using namespace D2DEngine;
 
-class TestScene01 : public D2DEngine::Scene
+Scene* CreateTestScene01();
+
+class TestScene01 : public Scene
 {
 public:
 	TestScene01();
@@ -31,5 +33,5 @@ public:
 	virtual void OnDestroy() override;
 	// ========================================================================================
 private:
-	D2DEngine::Camera* m_pCamera;
+	Camera* m_pCamera;
 };

@@ -1,6 +1,6 @@
 #include "TestScene02.h"
-#include "App\Assets\Object\Square\Square.h"
-#include "App\Assets\Object\Circle\Circle.h"
+#include "App\Assets\Object\Wall.h"
+#include "App\Assets\Object\Circle.h"
 #include "Core\Engine.h"
 
 using namespace D2DEngine;
@@ -16,13 +16,13 @@ TestScene02::TestScene02()
     RECT rc;
     Engine::GetInstance().GetClientRect(&rc);
 
-    pCamera = new Camera(static_cast<float>(rc.right - rc.left), static_cast<float>(rc.bottom - rc.top), 1.0f);
+    pCamera = new Camera(static_cast<float>(rc.right - rc.left), static_cast<float>(rc.bottom - rc.top));
     SetRenderingCamera(pCamera);
 }
 
 TestScene02::~TestScene02()
 {
-    SafeDeleteScalar(pCamera);
+    D2DESafeDelete(pCamera);
 }
 
 void TestScene02::OnStart()
@@ -31,7 +31,7 @@ void TestScene02::OnStart()
     Log::Print(Log::Type::LT_INFO, "TestScene02::OnStart");
 #endif // _DEBUG
 
-    // Square* pPlayer = new Square(ActiveFlag(true), L"박스1", ObjectTag::Default);
+    // Wall* pPlayer = new Wall(ActiveFlag(true), L"박스1", ObjectTag::Default);
     // pPlayer->GetTransform().SetPosition(D2D_VECTOR_2F{ -500.0f, 300.0f });
     // AddObject(pPlayer, LayerType::Player);
     // 

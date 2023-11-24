@@ -1,14 +1,16 @@
 #include "TestScene01.h"
-#include "App\Assets\Object\ControllableRectangle\ControllableRectangle.h"
-#include "App\Assets\Object\Square\Square.h"
-#include "App\Assets\Object\Pentagon\Pentagon.h"
-#include "App\Assets\Object\Triangle\Triangle.h"
-#include "App\Assets\Object\Circle\Circle.h"
+#include "App\Assets\Object\Car.h"
+#include "App\Assets\Object\Wall.h"
+#include "App\Assets\Object\AlYac.h"
+#include "App\Assets\Object\Stone.h"
+#include "App\Assets\Object\Triangle.h"
+#include "App\Assets\Object\Circle.h"
+#include "App\Assets\Object\Oscillation.h"
+#include "App\Assets\Object\Ground.h"
+#include "App\Assets\Object\Rope.h"
 #include "Core\Engine.h"
 
-using namespace D2DEngine;
-
-D2DEngine::Scene* CreateTestScene01()
+Scene* CreateTestScene01()
 {
     return new TestScene01;
 }
@@ -19,173 +21,401 @@ TestScene01::TestScene01()
     RECT rc;
     Engine::GetInstance().GetClientRect(&rc);
     
-    m_pCamera = new Camera(static_cast<float>(rc.right - rc.left), static_cast<float>(rc.bottom - rc.top), 1.0f);
+    m_pCamera = new Camera(static_cast<float>(rc.right - rc.left), static_cast<float>(rc.bottom - rc.top));
     SetRenderingCamera(m_pCamera);
 }
 
 TestScene01::~TestScene01()
 {
-    SafeDeleteScalar(m_pCamera);
+    D2DESafeDelete(m_pCamera);
 }
 
 void TestScene01::OnStart()
 {
+    m_pCamera->SetScale(100.0f, 100.0f);
+
 #ifdef _DEBUG
     Log::Print(Log::Type::LT_INFO, "TestScene01::OnStart");
 #endif // _DEBUG
 
-    // Player* pPlayer = new Player(ActiveFlag(true), L"플레이어", ObjectTag::Default);
-    // pPlayer->GetTransform().SetPosition(D2D_VECTOR_2F{ 0.0f, 0.0f });
-    // AddObject(pPlayer, LayerType::Player);
+    Rope* pRope = new Rope(0.1f, 20, 0.25f);
+    pRope->SetPosition(-6.0f, 3.0f);
+    pRope->CreateRopeSegment();         // SetPosition 하고나서 호출!!
+    AddObject(pRope, LayerType::Default);
 
-    ControllableRectangle* pControllableRect = new ControllableRectangle(D2D_RECT_F{ -37.5f, 50.0f, 37.5f, -50.0f });
-    pControllableRect->CreateCollider(ip::math::Size2{ 75.0f, 100.0f });
-    pControllableRect->Collider()->CreateRigidBody(real(5.0), real(2.0), real(0.6), real(0.15), real(0.1), false);
-    pControllableRect->Collider()->SetPosition(0.0f, 400.0f);
-    AddObject(pControllableRect, LayerType::Interactable);
-
-
-
-    // D2D1_POINT_2F shapeBuffer[10];
-    // float x = 0.0f;
-    // float y = 0.0f;
-    // shapeBuffer[0].x = -25.0f;
-    // shapeBuffer[0].y = -25.0f;
-    // shapeBuffer[1].x = +25.0f;
-    // shapeBuffer[1].y = -25.0f;
-    // shapeBuffer[2].x = +35.0f;
-    // shapeBuffer[2].y = 0.0f;
-    // shapeBuffer[3].x = 0.0f;
-    // shapeBuffer[3].y = 35.0f;
-    // shapeBuffer[4].x = -35.0f;
-    // shapeBuffer[4].y = 0.0f;
-    // x = 0.0f;
-    // y = 0.0f;
-    // for (int i = 0; i < 5; i++)
-    // {
-    //     x += shapeBuffer[i].x;
-    //     y += shapeBuffer[i].y;
-    // }
-    // x /= 5.0f;
-    // y /= 5.0f;
-    // for (int i = 0; i < 5; i++)
-    // {
-    //     shapeBuffer[i].x -= x;
-    //     shapeBuffer[i].y -= y;
-    // }
-    // Pentagon* pentagon = new Pentagon(shapeBuffer);
-    // pentagon->CreateCollider(reinterpret_cast<ip::math::Vector2*>(shapeBuffer));
-    // pentagon->Collider()->CreateRigidBody(real(1.8), real(0.5), real(0.5), real(0.3), real(0.1), false);
-    // pentagon->Collider()->SetRotation(real(0.0));
-    // pentagon->Collider()->SetPosition(0.0, 300.0);
-    // AddObject(pentagon, LayerType::Interactable);
-
-
-
-
-
-
-    // shapeBuffer[0].x = -25.0f;
-    // shapeBuffer[0].y = -25.0f;
-    // shapeBuffer[1].x = +25.0f;
-    // shapeBuffer[1].y = -25.0f;
-    // shapeBuffer[2].x = 0.0f;
-    // shapeBuffer[2].y = +32.5f;
-    // x = 0.0f;
-    // y = 0.0f;
-    // for (int i = 0; i < 3; i++)
-    // {
-    //     x += shapeBuffer[i].x;
-    //     y += shapeBuffer[i].y;
-    // }
-    // x /= 3.0f;
-    // y /= 3.0f;
-    // for (int i = 0; i < 3; i++)
-    // {
-    //     shapeBuffer[i].x -= x;
-    //     shapeBuffer[i].y -= y;
-    // }
-    // Triangle* tri = new Triangle(shapeBuffer);
-    // tri->CreateCollider(reinterpret_cast<ip::math::Vector2*>(shapeBuffer));
-    // tri->Collider()->CreateRigidBody(real(1.8), real(0.5), real(0.5), real(0.3), real(0.1), false);
-    // tri->Collider()->SetRotation(real(0.0));
-    // tri->Collider()->SetPosition(0.0, 300.0);
-    // AddObject(tri, LayerType::Interactable);
-
-
-    // Square* b = new Square(D2D_RECT_F{ -35.0f, 15.0f, 35.0f, -15.0f });
-    // b->CreateCollider(ip::math::Size2{ 70.0f, 30.0f });
-    // b->Collider()->CreateRigidBody(real(1.0), real(0.5), real(0.5), real(0.15), real(0.1), false);
-    // b->Collider()->SetRotation(D2DEngine::Mathf::DegreeToRadian(0.0f));
-    // b->Collider()->SetPosition(0.0, 700.0);
-    // AddObject(b, LayerType::Interactable);
-    // 
-    // b = new Square(D2D_RECT_F{ -35.0f, 15.0f, 35.0f, -15.0f });
-    // b->CreateCollider(ip::math::Size2{ 70.0f, 30.0f });
-    // b->Collider()->CreateRigidBody(real(1.0), real(0.5), real(0.5), real(0.15), real(0.1), false);
-    // b->Collider()->SetRotation(D2DEngine::Mathf::DegreeToRadian(0.0f));
-    // b->Collider()->SetPosition(5.0f, 1000.0f);
-    // AddObject(b, LayerType::Interactable);
-    // 
-    // b = new Square(D2D_RECT_F{ -35.0f, 15.0f, 35.0f, -15.0f });
-    // b->CreateCollider(ip::math::Size2{ 70.0f, 30.0f });
-    // b->Collider()->CreateRigidBody(real(1.0), real(0.5), real(0.5), real(0.15), real(0.1), false);
-    // b->Collider()->SetRotation(D2DEngine::Mathf::DegreeToRadian(0.0f));
-    // b->Collider()->SetPosition(15.0f, 1300.0f);
-    // AddObject(b, LayerType::Interactable);
-    // 
-    // b = new Square(D2D_RECT_F{ -35.0f, 15.0f, 35.0f, -15.0f });
-    // b->CreateCollider(ip::math::Size2{ 70.0f, 30.0f });
-    // b->Collider()->CreateRigidBody(real(1.0), real(0.5), real(0.5), real(0.15), real(0.1), false);
-    // b->Collider()->SetRotation(D2DEngine::Mathf::DegreeToRadian(0.0f));
-    // b->Collider()->SetPosition(-10.0f, 1600.0f);
-    // AddObject(b, LayerType::Interactable);
-    // 
-    // b = new Square(D2D_RECT_F{ -35.0f, 15.0f, 35.0f, -15.0f });
-    // b->CreateCollider(ip::math::Size2{ 70.0f, 30.0f });
-    // b->Collider()->CreateRigidBody(real(1.0), real(0.5), real(0.5), real(0.15), real(0.1), false);
-    // b->Collider()->SetRotation(D2DEngine::Mathf::DegreeToRadian(0.0f));
-    // b->Collider()->SetPosition(-20.0f, 1900.0f);
-    // AddObject(b, LayerType::Interactable);
-
-    Circle* pCircle = new Circle(25.0f);
-    pCircle->CreateCollider(25.0f);
-    pCircle->Collider()->CreateRigidBody(real(0.5), real(0.5), real(0.8), real(0.3), real(0.1), false);
-    pCircle->Collider()->SetPosition(0.0f, 300.0f);
-    AddObject(pCircle, LayerType::Interactable);
+    Oscillation* o = new Oscillation(0.25f);
+    o->CreateRigidBody(ip::Kinematic, 0.0, 0.0, 0.2, 0.2, 0.1, 1.0);
+    o->CreateCircleCollider(ip::Default, 0.25f);
+    o->SetPosition(1.0, 0.0);
+    o->SetAngularVelocity(2);
+    o->SetVelocity(0.0, 0.0);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(o);
+    AddObject(o, LayerType::Default);
     
-    pCircle = new Circle(25.0f);
-    pCircle->CreateCollider(25.0f);
-    pCircle->Collider()->CreateRigidBody(real(0.75), real(0.5), real(0.8), real(0.3), real(0.1), false);
-    pCircle->Collider()->SetPosition(-150.0f, 500.0f);
-    AddObject(pCircle, LayerType::Interactable);
-    
-    pCircle = new Circle(25.0f);
-    pCircle->CreateCollider(25.0f);
-    pCircle->Collider()->CreateRigidBody(real(0.6), real(0.5), real(0.8), real(0.3), real(0.1), false);
-    pCircle->Collider()->SetPosition(-100.0f, 500.0f);
-    AddObject(pCircle, LayerType::Interactable);
+    D2D1_POINT_2F shapeBuffer[10];
+    float x = 0.0f;
+    float y = 0.0f;
+    shapeBuffer[0].x = -0.2f;
+    shapeBuffer[0].y = -0.25f;
+    shapeBuffer[1].x = +0.25f;
+    shapeBuffer[1].y = -0.25f;
+    shapeBuffer[2].x = +0.28f;
+    shapeBuffer[2].y = 0.0f;
+    shapeBuffer[3].x = 0.0f;
+    shapeBuffer[3].y = 0.35f;
+    shapeBuffer[4].x = -0.42f;
+    shapeBuffer[4].y = 0.12f;
+    x = 0.0f;
+    y = 0.0f;
+    for (int i = 0; i < 5; i++)
+    {
+        x += shapeBuffer[i].x;
+        y += shapeBuffer[i].y;
+    }
+    x /= 5;
+    y /= 5;
+    for (int i = 0; i < 5; i++)
+    {
+        shapeBuffer[i].x -= x;
+        shapeBuffer[i].y -= y;
+    }
 
-    Square* pBox = new Square(D2D_RECT_F{ -500.0f, 10.0f, 500.0f, -10.0f });
-    pBox->CreateCollider(ip::math::Size2{ 1000.0f, 20.0f });
-    pBox->Collider()->CreateRigidBody(real(1000.0), real(0.5), real(0.5), real(0.2), real(0.1), true);
-    pBox->Collider()->SetRotation(D2DEngine::Mathf::DegreeToRadian(15.0f));
-    pBox->Collider()->SetPosition(0.0f, -100.0f);
-    AddObject(pBox, LayerType::Ground);
+    Stone* pStone = new Stone(shapeBuffer);
+    pStone->CreateHullCollider(ip::Default, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 5);
+    pStone->CreateRigidBody(ip::Dynamic, real(2), real(0.2), real(0.3), real(0.5), real(0.4), real(1.0));
+    pStone->SetRotation(Mathf::DegreeToRadian(-24.0f));
+    pStone->SetPosition(0.0f, 2.5f);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pStone);
+    AddObject(pStone, LayerType::Interactable);
+
+    pStone = new Stone(shapeBuffer);
+    pStone->CreateHullCollider(ip::Default, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 5);
+    pStone->CreateRigidBody(ip::Static, real(2), real(0.2), real(0.3), real(0.0), real(0.0), real(1.0));
+    pStone->SetRotation(Mathf::DegreeToRadian(-90.0f));
+    pStone->SetPosition(5.0f, 0.5f);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pStone);
+    AddObject(pStone, LayerType::Interactable);
+
+    pStone = new Stone(shapeBuffer);
+    pStone->CreateHullCollider(ip::Default, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 5);
+    pStone->CreateRigidBody(ip::Static, real(2), real(0.2), real(0.3), real(0.0), real(0.0), real(1.0));
+    pStone->SetRotation(Mathf::DegreeToRadian(-46.0f));
+    pStone->SetPosition(-6.5f, 0.75f);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pStone);
+    AddObject(pStone, LayerType::Interactable);
     
-    pBox = new Square(D2D_RECT_F{ -250.0f, 10.0f, 250.0f, -10.0f });
-    pBox->CreateCollider(ip::math::Size2{ 500.0f, 20.0f });
-    pBox->Collider()->CreateRigidBody(real(1000.0), real(0.5), real(0.5), real(0.2), real(0.1), true);
-    pBox->Collider()->SetRotation(D2DEngine::Mathf::DegreeToRadian(-20.0f));
-    pBox->Collider()->SetPosition(-100.0f, 200.0f);
-    AddObject(pBox, LayerType::Ground);
+    shapeBuffer[0].x = -0.15f;
+    shapeBuffer[0].y = -0.35f;
+    shapeBuffer[1].x = +0.55f;
+    shapeBuffer[1].y = -0.35f;
+    shapeBuffer[2].x = 0.0f;
+    shapeBuffer[2].y = +0.185f;
+    x = 0.0f;
+    y = 0.0f;
+    for (int i = 0; i < 3; i++)
+    {
+        x += shapeBuffer[i].x;
+        y += shapeBuffer[i].y;
+    }
+    x /= 3;
+    y /= 3;
+    for (int i = 0; i < 3; i++)
+    {
+        shapeBuffer[i].x -= x;
+        shapeBuffer[i].y -= y;
+    }
+    Triangle* tri = new Triangle(shapeBuffer);
+    tri->CreateHullCollider(ip::Default, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 3);
+    tri->CreateRigidBody(ip::Dynamic, real(0.2), real(0.02), real(0.03), real(0.3), real(0.15), real(1.0));
+    tri->SetRotation(real(0.0));
+    tri->SetPosition(0.0, 3.5);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(tri);
+    AddObject(tri, LayerType::Interactable);
     
-    pBox = new Square(D2D_RECT_F{ -250.0f, 10.0f, 250.0f, -10.0f });
-    pBox->CreateCollider(ip::math::Size2{ 500.0f, 20.0f });
-    pBox->Collider()->CreateRigidBody(real(1000.0), real(0.5), real(0.5), real(0.2), real(0.1), true);
-    pBox->Collider()->SetRotation(D2DEngine::Mathf::DegreeToRadian(90.0f));
-    pBox->Collider()->SetPosition(-400, -300);
-    AddObject(pBox, LayerType::Ground);
+    
+    AlYac* alyac = new AlYac(0.2, 2.0);
+    alyac->CreateCapsuleCollider(ip::Default, 0.2, 2.0);
+    alyac->CreateRigidBody(ip::Kinematic, real(0.2), real(0.02), real(0.03), real(0.3), real(0.15), real(1.0));
+    alyac->SetRotation(D2DEngine::Mathf::DegreeToRadian(0.0f));
+    alyac->SetPosition(6.0, 5.0);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(alyac);
+    AddObject(alyac, LayerType::Interactable);
+
+    alyac = new AlYac(0.15, 1.5);
+    alyac->CreateCapsuleCollider(ip::Default, 0.15, 1.5);
+    alyac->CreateRigidBody(ip::Kinematic, real(0.2), real(0.02), real(0.03), real(0.0), real(0.0), real(1.0));
+    alyac->SetRotation(D2DEngine::Mathf::DegreeToRadian(0.0f));
+    alyac->SetPosition(-5.5, 0.0);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(alyac);
+    AddObject(alyac, LayerType::Interactable);
+    
+    Wall* pWall;
+
+    pWall = new Wall(D2D_RECT_F{ -3, -0.1, 3, 0.1 }, 1.0f, 3.0f, ip::math::Vector2::right);
+    pWall->CreateBoxCollider(ip::Wall, 6.0, 0.2);
+    pWall->CreateRigidBody(ip::Kinematic, real(0), real(0), real(0.3), real(0.4), real(0.4), real(1.0));
+    pWall->SetRotation(0);
+    pWall->SetPosition(-2, 2.0);
+    pWall->StaticReady();
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pWall);
+    AddObject(pWall, LayerType::Interactable);
+
+    pWall = new Wall(D2D_RECT_F{ -1, -0.1, 1, 0.1 }, 3.0f, 5.0f, ip::math::Vector2::up);
+    pWall->CreateBoxCollider(ip::Wall, 2.0, 0.2);
+    pWall->CreateRigidBody(ip::Kinematic, real(0), real(0), real(0.3), real(0.4), real(0.4), real(1.0));
+    pWall->SetRotation(0);
+    pWall->SetPosition(-1.5, 1.5);
+    pWall->StaticReady();
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pWall);
+    AddObject(pWall, LayerType::Interactable);
+    
+    
+    Car* pCar = new Car();
+    pCar->CreateBoxCollider(ip::CarBody, real(1.0), real(0.5));
+    pCar->CreateRigidBody(ip::Kinematic, real(5), real(0.5), real(0.4), real(0.2), real(0.1), real(1.0));
+    pCar->SetRotation(0);
+    pCar->SetPosition(0.0f, 5.0f);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pCar);
+    AddObject(pCar, LayerType::Interactable);
+    
+    Ground* pGround;
+
+#define GROUND_Y -4.0f
+    
+    shapeBuffer[0] = { -0.5, -1.0 };
+    shapeBuffer[1] = { 0.5, -1.0 };
+    shapeBuffer[2] = { 0.5, 1.4 };
+    shapeBuffer[3] = { -0.5, 1.6 };
+    pGround = new Ground(shapeBuffer);
+    pGround->CreateHullCollider(ip::Ground, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 4);
+    pGround->CreateRigidBody(ip::Static, 0, 0, real(0.35), real(0.2), real(0.1), real(1.0));
+    pGround->SetPosition(-10.0f, GROUND_Y);
+    pGround->SetRotation(0.0);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pGround);
+    AddObject(pGround, LayerType::Interactable);
+
+    shapeBuffer[0] = { -0.5, -1.0 };
+    shapeBuffer[1] = { 0.5, -1.0 };
+    shapeBuffer[2] = { 0.5, 0.8 };
+    shapeBuffer[3] = { -0.5, 1.4 };
+    pGround = new Ground(shapeBuffer);
+    pGround->CreateHullCollider(ip::Ground, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 4);
+    pGround->CreateRigidBody(ip::Static, 0, 0, real(0.35), real(0.2), real(0.1), real(1.0));
+    pGround->SetPosition(-9.0f, GROUND_Y);
+    pGround->SetRotation(0.0);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pGround);
+    AddObject(pGround, LayerType::Interactable);
+
+    shapeBuffer[0] = { -0.5, -1.0 };
+    shapeBuffer[1] = { 0.5, -1.0 };
+    shapeBuffer[2] = { 0.5, 0.2 };
+    shapeBuffer[3] = { -0.5, 0.8 };
+    pGround = new Ground(shapeBuffer);
+    pGround->CreateHullCollider(ip::Ground, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 4);
+    pGround->CreateRigidBody(ip::Static, 0, 0, real(0.35), real(0.2), real(0.1), real(1.0));
+    pGround->SetPosition(-8.0f, GROUND_Y);
+    pGround->SetRotation(0.0);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pGround);
+    AddObject(pGround, LayerType::Interactable);
+    
+    
+    shapeBuffer[0] = { -0.5, -1.0 };
+    shapeBuffer[1] = { 0.5, -1.0 };
+    shapeBuffer[2] = { 0.5, 0.4 };
+    shapeBuffer[3] = { -0.5, 0.2 };
+    pGround = new Ground(shapeBuffer);
+    pGround->CreateHullCollider(ip::Ground, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 4);
+    pGround->CreateRigidBody(ip::Static, 0, 0, real(0.35), real(0.2), real(0.1), real(1.0));
+    pGround->SetPosition(-7.0f, GROUND_Y);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pGround);
+    AddObject(pGround, LayerType::Interactable);
+    
+    shapeBuffer[0] = { -0.5, -1.0 };
+    shapeBuffer[1] = { 0.5, -1.0 };
+    shapeBuffer[2] = { 0.5, -0.1 };
+    shapeBuffer[3] = { -0.5, 0.4 };
+    pGround = new Ground(shapeBuffer);
+    pGround->CreateHullCollider(ip::Ground, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 4);
+    pGround->CreateRigidBody(ip::Static, 0, 0, real(0.35), real(0.2), real(0.1), real(1.0));
+    pGround->SetPosition(-6.0f, GROUND_Y);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pGround);
+    AddObject(pGround, LayerType::Interactable);
+    
+    shapeBuffer[0] = { -0.5, -1.0 };
+    shapeBuffer[1] = { 0.5, -1.0 };
+    shapeBuffer[2] = { 0.5, 0.5 };
+    shapeBuffer[3] = { -0.5, -0.1 };
+    pGround = new Ground(shapeBuffer);
+    pGround->CreateHullCollider(ip::Ground, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 4);
+    pGround->CreateRigidBody(ip::Static, 0, 0, real(0.35), real(0.2), real(0.1), real(1.0));
+    pGround->SetPosition(-5.0f, GROUND_Y);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pGround);
+    AddObject(pGround, LayerType::Interactable);
+    
+    shapeBuffer[0] = { -0.5, -1.0 };
+    shapeBuffer[1] = { 0.5, -1.0 };
+    shapeBuffer[2] = { 0.5, 0.25 };
+    shapeBuffer[3] = { -0.5, 0.5 };
+    pGround = new Ground(shapeBuffer);
+    pGround->CreateHullCollider(ip::Ground, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 4);
+    pGround->CreateRigidBody(ip::Static, 0, 0, real(0.35), real(0.2), real(0.1), real(1.0));
+    pGround->SetPosition(-4.0f, GROUND_Y);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pGround);
+    AddObject(pGround, LayerType::Interactable);
+    
+    shapeBuffer[0] = { -0.5, -1.0 };
+    shapeBuffer[1] = { 0.5, -1.0 };
+    shapeBuffer[2] = { 0.5, 0.6 };
+    shapeBuffer[3] = { -0.5, 0.25 };
+    pGround = new Ground(shapeBuffer);
+    pGround->CreateHullCollider(ip::Ground, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 4);
+    pGround->CreateRigidBody(ip::Static, 0, 0, real(0.35), real(0.2), real(0.1), real(1.0));
+    pGround->SetPosition(-3.0f, GROUND_Y);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pGround);
+    AddObject(pGround, LayerType::Interactable);
+    
+    shapeBuffer[0] = { -0.5, -1.0 };
+    shapeBuffer[1] = { 0.5, -1.0 };
+    shapeBuffer[2] = { 0.5, 0.1 };
+    shapeBuffer[3] = { -0.5, 0.6 };
+    pGround = new Ground(shapeBuffer);
+    pGround->CreateHullCollider(ip::Ground, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 4);
+    pGround->CreateRigidBody(ip::Static, 0, 0, real(0.35), real(0.2), real(0.1), real(1.0));
+    pGround->SetPosition(-2.0f, GROUND_Y);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pGround);
+    AddObject(pGround, LayerType::Interactable);
+    
+    shapeBuffer[0] = { -0.5, -1.0 };
+    shapeBuffer[1] = { 0.5, -1.0 };
+    shapeBuffer[2] = { 0.5, -0.2 };
+    shapeBuffer[3] = { -0.5, 0.1 };
+    pGround = new Ground(shapeBuffer);
+    pGround->CreateHullCollider(ip::Ground, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 4);
+    pGround->CreateRigidBody(ip::Static, 0, 0, real(0.35), real(0.2), real(0.1), real(1.0));
+    pGround->SetPosition(-1.0f, GROUND_Y);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pGround);
+    AddObject(pGround, LayerType::Interactable);
+    
+    shapeBuffer[0] = { -0.5, -1.0 };
+    shapeBuffer[1] = { 0.5, -1.0 };
+    shapeBuffer[2] = { 0.5, 0.0 };
+    shapeBuffer[3] = { -0.5, -0.2 };
+    pGround = new Ground(shapeBuffer);
+    pGround->CreateHullCollider(ip::Ground, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 4);
+    pGround->CreateRigidBody(ip::Static, 0, 0, real(0.35), real(0.2), real(0.1), real(1.0));
+    pGround->SetPosition(0.0f, GROUND_Y);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pGround);
+    AddObject(pGround, LayerType::Interactable);
+    
+    shapeBuffer[0] = { -0.5, -1.0 };
+    shapeBuffer[1] = { 0.5, -1.0 };
+    shapeBuffer[2] = { 0.5, 0.25 };
+    shapeBuffer[3] = { -0.5, 0.0 };
+    pGround = new Ground(shapeBuffer);
+    pGround->CreateHullCollider(ip::Ground, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 4);
+    pGround->CreateRigidBody(ip::Static, 0, 0, real(0.35), real(0.2), real(0.1), real(1.0));
+    pGround->SetPosition(1.0f, GROUND_Y);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pGround);
+    AddObject(pGround, LayerType::Interactable);
+    
+    shapeBuffer[0] = { -0.5, -1.0 };
+    shapeBuffer[1] = { 0.5, -1.0 };
+    shapeBuffer[2] = { 0.5, 0.1 };
+    shapeBuffer[3] = { -0.5, 0.25 };
+    pGround = new Ground(shapeBuffer);
+    pGround->CreateHullCollider(ip::Ground, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 4);
+    pGround->CreateRigidBody(ip::Static, 0, 0, real(0.35), real(0.2), real(0.1), real(1.0));
+    pGround->SetPosition(2.0f, GROUND_Y);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pGround);
+    AddObject(pGround, LayerType::Interactable);
+    
+    shapeBuffer[0] = { -0.5, -1.0 };
+    shapeBuffer[1] = { 0.5, -1.0 };
+    shapeBuffer[2] = { 0.5, 0.2 };
+    shapeBuffer[3] = { -0.5, 0.1 };
+    pGround = new Ground(shapeBuffer);
+    pGround->CreateHullCollider(ip::Ground, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 4);
+    pGround->CreateRigidBody(ip::Static, 0, 0, real(0.35), real(0.2), real(0.1), real(1.0));
+    pGround->SetPosition(3.0f, GROUND_Y);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pGround);
+    AddObject(pGround, LayerType::Interactable);
+    
+    shapeBuffer[0] = { -0.5, -1.0 };
+    shapeBuffer[1] = { 0.5, -1.0 };
+    shapeBuffer[2] = { 0.5, 0.35 };
+    shapeBuffer[3] = { -0.5, 0.2 };
+    pGround = new Ground(shapeBuffer);
+    pGround->CreateHullCollider(ip::Ground, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 4);
+    pGround->CreateRigidBody(ip::Static, 0, 0, real(0.35), real(0.2), real(0.1), real(1.0));
+    pGround->SetPosition(4.0f, GROUND_Y);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pGround);
+    AddObject(pGround, LayerType::Interactable);
+    
+    shapeBuffer[0] = { -0.5, -1.0 };
+    shapeBuffer[1] = { 0.5, -1.0 };
+    shapeBuffer[2] = { 0.5, 0.55 };
+    shapeBuffer[3] = { -0.5, 0.35 };
+    pGround = new Ground(shapeBuffer);
+    pGround->CreateHullCollider(ip::Ground, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 4);
+    pGround->CreateRigidBody(ip::Static, 0, 0, real(0.35), real(0.2), real(0.1), real(1.0));
+    pGround->SetPosition(5.0f, GROUND_Y);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pGround);
+    AddObject(pGround, LayerType::Interactable);
+    
+    shapeBuffer[0] = { -0.5, -1.0 };
+    shapeBuffer[1] = { 0.5, -1.0 };
+    shapeBuffer[2] = { 0.5, 0.7 };
+    shapeBuffer[3] = { -0.5, 0.55 };
+    pGround = new Ground(shapeBuffer);
+    pGround->CreateHullCollider(ip::Ground, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 4);
+    pGround->CreateRigidBody(ip::Static, 0, 0, real(0.35), real(0.2), real(0.1), real(1.0));
+    pGround->SetPosition(6.0f, GROUND_Y);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pGround);
+    AddObject(pGround, LayerType::Interactable);
+    
+    shapeBuffer[0] = { -0.5, -1.0 };
+    shapeBuffer[1] = { 0.5, -1.0 };
+    shapeBuffer[2] = { 0.5, 0.7 };
+    shapeBuffer[3] = { -0.5, 0.7 };
+    pGround = new Ground(shapeBuffer);
+    pGround->CreateHullCollider(ip::Ground, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 4);
+    pGround->CreateRigidBody(ip::Static, 0, 0, real(0.35), real(0.2), real(0.1), real(1.0));
+    pGround->SetPosition(7.0f, GROUND_Y);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pGround);
+    AddObject(pGround, LayerType::Interactable);
+    
+    shapeBuffer[0] = { -0.5, -1.0 };
+    shapeBuffer[1] = { 0.5, -1.0 };
+    shapeBuffer[2] = { 0.5, 1.5 };
+    shapeBuffer[3] = { -0.5, 0.7 };
+    pGround = new Ground(shapeBuffer);
+    pGround->CreateHullCollider(ip::Ground, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 4);
+    pGround->CreateRigidBody(ip::Static, 0, 0, real(0.35), real(0.2), real(0.1), real(1.0));
+    pGround->SetPosition(8.0f, GROUND_Y);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pGround);
+    AddObject(pGround, LayerType::Interactable);
+
+    shapeBuffer[0] = { -0.5, -1.0 };
+    shapeBuffer[1] = { 0.5, -1.0 };
+    shapeBuffer[2] = { 0.5, 3.0 };
+    shapeBuffer[3] = { -0.5, 1.5 };
+    pGround = new Ground(shapeBuffer);
+    pGround->CreateHullCollider(ip::Ground, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 4);
+    pGround->CreateRigidBody(ip::Static, 0, 0, real(0.35), real(0.2), real(0.1), real(1.0));
+    pGround->SetPosition(9.0f, GROUND_Y);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pGround);
+    AddObject(pGround, LayerType::Interactable);
+
+    shapeBuffer[0] = { -0.5, -1.0 };
+    shapeBuffer[1] = { 0.5, -1.0 };
+    shapeBuffer[2] = { 0.5, 4.0 };
+    shapeBuffer[3] = { -0.5, 3.0 };
+    pGround = new Ground(shapeBuffer);
+    pGround->CreateHullCollider(ip::Ground, reinterpret_cast<ip::math::Vector2*>(shapeBuffer), 4);
+    pGround->CreateRigidBody(ip::Static, 0, 0, real(0.35), real(0.2), real(0.1), real(1.0));
+    pGround->SetPosition(10.0f, GROUND_Y);
+    Engine::GetInstance().PhysWorld().AddPhysicsObject(pGround);
+    AddObject(pGround, LayerType::Interactable);
 }
 
 void TestScene01::CreateDeviceDependentResources()

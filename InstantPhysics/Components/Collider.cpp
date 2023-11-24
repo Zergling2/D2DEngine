@@ -1,43 +1,32 @@
 #include "Collider.h"
-#include "Common\Parameters.h"
-#include "Components\RigidBody.h"
+#include "Common\IPMacro.h"
 
 using namespace ip;
 
 Collider::~Collider()
 {
-	if (m_pRigidBody)
-	{
-		delete m_pRigidBody;
-		m_pRigidBody = nullptr;
-	}
+	DeleteAABBNode();
 }
 
-bool Collider::CreateRigidBody(real mass, real inertia, real restitution, real sf, real df, bool isStatic)
+bool Collider::Initialize()
 {
-	if (m_pRigidBody != nullptr)
+	return CreateAABBNode();
+}
+
+bool Collider::CreateAABBNode()
+{
+	// Create AABB Node
+	m_AABB.pMinXNode = new (std::nothrow)AABBNode(this, Type::MIN);
+	m_AABB.pMaxXNode = new (std::nothrow)AABBNode(this, Type::MAX);
+
+	if (!m_AABB.pMinXNode || !m_AABB.pMaxXNode)
 		return false;
 
-	m_pRigidBody = new RigidBody(*this, mass, inertia, restitution, sf, df, isStatic);
 	return true;
 }
 
-void Collider::SetRotation(real radian)
+void Collider::DeleteAABBNode()
 {
-	m_radian = radian;
-	if (++m_rotateCounter & parameter::FMOD_FREQUENCY_MASK)
-	{
-		m_rotateCounter = 0;
-		m_radian = std::fmod(m_radian, math::PIx2);
-	}
-}
-
-void Collider::Rotate(real radian)
-{
-	m_radian += radian;
-	if (++m_rotateCounter & parameter::FMOD_FREQUENCY_MASK)
-	{
-		m_rotateCounter = 0;
-		m_radian = std::fmod(m_radian, math::PIx2);
-	}
+	IPSafeDelete(m_AABB.pMinXNode);
+	IPSafeDelete(m_AABB.pMaxXNode);
 }

@@ -1,13 +1,10 @@
 #pragma once
 
-#include "Headers\Essential.h"
 #include "Object\Object.h"
-#include "Components\Derived\Transform.h"
-#include "InstantPhysics.h"
 
 namespace D2DEngine
 {
-	class GameObject abstract : public Object
+	class GameObject : public Object
 	{
 		friend class Scene;
 	public:
@@ -63,15 +60,5 @@ namespace D2DEngine
 		// =============================
 
 		// ===========================================================================================
-
-		inline Transform& GetTransform() { return m_transform; }
-	private:
-		// components
-		Transform m_transform;							// 기본 컴포넌트
-
-		// 파생 클래스에서..
-		// Sample
-		// 
-		// ip::Collider* m_pCollider;
 	};
 }

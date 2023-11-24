@@ -58,15 +58,6 @@ void Scene::FixedUpdate()
 
 void Scene::Update()
 {
-	// 1. 물리 API 호출 여기서 할건지?
-	// RigidBody 컴포넌트가 추가되는 경우...
-	// 물리 엔진 API 호출하는 식으로 작동 (Transform에 Directly/Indirectly 접근해야 할 듯)
-
-	// 물리 API 여기서 호출 (240Hz?? or else...)
-
-
-
-
 	for (UINT i = 0; i < static_cast<UINT>(LayerType::Count); i++)		// Update all layers in the scene. (Objects with scripts.)
 	{
 		auto end = m_layers[i].m_objectList.end();		// 오브젝트가 Update에서 추가되기 전 end iterator

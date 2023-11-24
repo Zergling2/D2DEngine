@@ -1,7 +1,7 @@
 #include "Ellipse.h"
 #include "Core\Engine.h"
 
-using namespace D2DEngine;
+using namespace D2DEngine::Graphic;
 
 Ellipse::Ellipse(GameObject* pGameObj, const D2D1_ELLIPSE& shape)
 	: Geometry(pGameObj)
